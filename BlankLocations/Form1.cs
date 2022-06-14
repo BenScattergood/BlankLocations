@@ -16,5 +16,16 @@ namespace BlankLocations
         {
             InitializeComponent();
         }
+
+        private void btnRunReport_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("this button will run the report");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var temp = this.Size;
+            Console.WriteLine();
+        }
     }
 }
