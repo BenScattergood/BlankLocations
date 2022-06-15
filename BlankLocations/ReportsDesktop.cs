@@ -10,17 +10,12 @@ using System.Windows.Forms;
 
 namespace BlankLocations
 {
-    public partial class Form1 : Form
+    public partial class ReportsDesktop : Form
     {
-        public Form1()
+        public ReportsDesktop()
         {
             InitializeComponent();
             toolStrip1.Renderer = new MySR();
-        }
-
-        private void btnRunReport_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("this button will run the report");
         }
 
         private void button1_Click(object sender, EventArgs e)

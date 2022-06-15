@@ -52,11 +52,12 @@
     <Compile Include="BlankLocationsReport.Designer.cs">
       <DependentUpon>BlankLocationsReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="BranchSpecificData.cs" />
+    <Compile Include="ReportsDesktop.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ReportsDesktop.Designer.cs">
+      <DependentUpon>ReportsDesktop.cs</DependentUpon>
     </Compile>
     <Compile Include="G05.cs" />
     <Compile Include="MySR.cs" />
@@ -65,8 +66,8 @@
     <EmbeddedResource Include="BlankLocationsReport.resx">
       <DependentUpon>BlankLocationsReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ReportsDesktop.resx">
+      <DependentUpon>ReportsDesktop.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
