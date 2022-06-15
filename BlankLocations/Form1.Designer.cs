@@ -39,11 +39,11 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnlExplorer = new System.Windows.Forms.Panel();
             this.pnlListBox = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbExplorer = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnOrganise = new System.Windows.Forms.Button();
+            this.btnOrganise_Explorer = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnAdd_Explorer = new System.Windows.Forms.Button();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
@@ -55,6 +55,8 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -62,6 +64,7 @@
             this.pnlExplorer.SuspendLayout();
             this.pnlListBox.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -111,6 +114,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 89);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.splitContainer1.Name = "splitContainer1";
@@ -122,7 +126,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.splitContainer1.Size = new System.Drawing.Size(1680, 938);
             this.splitContainer1.SplitterDistance = 319;
             this.splitContainer1.TabIndex = 3;
@@ -132,8 +136,8 @@
             this.pnlExplorer.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.pnlExplorer.Controls.Add(this.pnlListBox);
             this.pnlExplorer.Controls.Add(this.label1);
-            this.pnlExplorer.Controls.Add(this.btnOrganise);
-            this.pnlExplorer.Controls.Add(this.btnAdd);
+            this.pnlExplorer.Controls.Add(this.btnOrganise_Explorer);
+            this.pnlExplorer.Controls.Add(this.btnAdd_Explorer);
             this.pnlExplorer.Location = new System.Drawing.Point(12, 0);
             this.pnlExplorer.Name = "pnlExplorer";
             this.pnlExplorer.Size = new System.Drawing.Size(305, 926);
@@ -142,57 +146,60 @@
             // pnlListBox
             // 
             this.pnlListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlListBox.Controls.Add(this.listBox1);
+            this.pnlListBox.Controls.Add(this.lbExplorer);
             this.pnlListBox.Location = new System.Drawing.Point(13, 67);
             this.pnlListBox.Name = "pnlListBox";
             this.pnlListBox.Size = new System.Drawing.Size(278, 846);
             this.pnlListBox.TabIndex = 3;
             // 
-            // listBox1
+            // lbExplorer
             // 
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Microsoft Tai Le", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 19;
-            this.listBox1.Items.AddRange(new object[] {
+            this.lbExplorer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbExplorer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbExplorer.Font = new System.Drawing.Font("Microsoft Tai Le", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbExplorer.FormattingEnabled = true;
+            this.lbExplorer.ItemHeight = 19;
+            this.lbExplorer.Items.AddRange(new object[] {
             "   Blank Locations Updater"});
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(276, 844);
-            this.listBox1.TabIndex = 0;
+            this.lbExplorer.Location = new System.Drawing.Point(0, 0);
+            this.lbExplorer.Name = "lbExplorer";
+            this.lbExplorer.Size = new System.Drawing.Size(276, 844);
+            this.lbExplorer.TabIndex = 0;
+            this.lbExplorer.Click += new System.EventHandler(this.listBox1_Click);
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.Color.Blue;
+            this.label1.BackColor = System.Drawing.Color.Navy;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(305, 26);
+            this.label1.Size = new System.Drawing.Size(305, 27);
             this.label1.TabIndex = 0;
             this.label1.Text = "Explorer";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // btnOrganise
+            // btnOrganise_Explorer
             // 
-            this.btnOrganise.BackColor = System.Drawing.Color.GhostWhite;
-            this.btnOrganise.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnOrganise.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnOrganise.FlatAppearance.BorderSize = 2;
-            this.btnOrganise.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnOrganise.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOrganise.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOrganise.ImageIndex = 0;
-            this.btnOrganise.ImageList = this.imageList1;
-            this.btnOrganise.Location = new System.Drawing.Point(154, 29);
-            this.btnOrganise.Margin = new System.Windows.Forms.Padding(2);
-            this.btnOrganise.Name = "btnOrganise";
-            this.btnOrganise.Size = new System.Drawing.Size(137, 33);
-            this.btnOrganise.TabIndex = 2;
-            this.btnOrganise.Text = "    Organise...";
-            this.btnOrganise.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnOrganise.UseVisualStyleBackColor = false;
+            this.btnOrganise_Explorer.BackColor = System.Drawing.Color.GhostWhite;
+            this.btnOrganise_Explorer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnOrganise_Explorer.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnOrganise_Explorer.FlatAppearance.BorderSize = 2;
+            this.btnOrganise_Explorer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnOrganise_Explorer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOrganise_Explorer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOrganise_Explorer.ImageIndex = 0;
+            this.btnOrganise_Explorer.ImageList = this.imageList1;
+            this.btnOrganise_Explorer.Location = new System.Drawing.Point(154, 29);
+            this.btnOrganise_Explorer.Margin = new System.Windows.Forms.Padding(2);
+            this.btnOrganise_Explorer.Name = "btnOrganise_Explorer";
+            this.btnOrganise_Explorer.Size = new System.Drawing.Size(137, 33);
+            this.btnOrganise_Explorer.TabIndex = 2;
+            this.btnOrganise_Explorer.Text = "    Organise...";
+            this.btnOrganise_Explorer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnOrganise_Explorer.UseVisualStyleBackColor = false;
             // 
             // imageList1
             // 
@@ -201,26 +208,26 @@
             this.imageList1.Images.SetKeyName(0, "icons8-organize-64.png");
             this.imageList1.Images.SetKeyName(1, "icons8-plus-64.png");
             // 
-            // btnAdd
+            // btnAdd_Explorer
             // 
-            this.btnAdd.BackColor = System.Drawing.Color.GhostWhite;
-            this.btnAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnAdd.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnAdd.FlatAppearance.BorderSize = 2;
-            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdd.ImageIndex = 1;
-            this.btnAdd.ImageList = this.imageList1;
-            this.btnAdd.Location = new System.Drawing.Point(13, 29);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(137, 33);
-            this.btnAdd.TabIndex = 1;
-            this.btnAdd.Text = "     Add...";
-            this.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAdd.UseVisualStyleBackColor = false;
-            this.btnAdd.Click += new System.EventHandler(this.button1_Click);
+            this.btnAdd_Explorer.BackColor = System.Drawing.Color.GhostWhite;
+            this.btnAdd_Explorer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAdd_Explorer.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnAdd_Explorer.FlatAppearance.BorderSize = 2;
+            this.btnAdd_Explorer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAdd_Explorer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdd_Explorer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdd_Explorer.ImageIndex = 1;
+            this.btnAdd_Explorer.ImageList = this.imageList1;
+            this.btnAdd_Explorer.Location = new System.Drawing.Point(13, 29);
+            this.btnAdd_Explorer.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAdd_Explorer.Name = "btnAdd_Explorer";
+            this.btnAdd_Explorer.Size = new System.Drawing.Size(137, 33);
+            this.btnAdd_Explorer.TabIndex = 1;
+            this.btnAdd_Explorer.Text = "     Add...";
+            this.btnAdd_Explorer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAdd_Explorer.UseVisualStyleBackColor = false;
+            this.btnAdd_Explorer.Click += new System.EventHandler(this.button1_Click);
             // 
             // toolStripButton1
             // 
@@ -342,12 +349,35 @@
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Location = new System.Drawing.Point(323, 89);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1354, 926);
+            this.panel1.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Navy;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(1354, 27);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "No Report Selected";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1680, 1027);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -357,6 +387,7 @@
             this.Name = "Form1";
             this.Text = "Babbage 2.0";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -366,6 +397,7 @@
             this.pnlListBox.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -380,11 +412,11 @@
         private System.Windows.Forms.ToolStripMenuItem applicationsToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnOrganise;
+        private System.Windows.Forms.Button btnAdd_Explorer;
+        private System.Windows.Forms.Button btnOrganise_Explorer;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Panel pnlListBox;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbExplorer;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
@@ -397,6 +429,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButton6;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Panel pnlExplorer;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
