@@ -16,25 +16,32 @@ namespace BlankLocations
         {
             InitializeComponent();
             panel1.Size = panelSize;
-            G05.PopulateG05();
-            GetDistinctLocations();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             UpdateEliminatedLocations();
-            
+            AddItemsToListBox();
         }
-        private void AddItemsToListBox(List<string> locations)
+        private void AddItemsToListBox()
         {
+            listBox1.Items.Clear();
+            foreach (var location in BranchSpecificData.eliminatedLocations)
+            {
+                listBox1.Items.Add(location);
+            }
+        }
+        private void AddItemsTocheckedListBox(List<string> locations)
+        {
+            checkedListBox1.Items.Clear();
             foreach (var location in locations)
             {
                 checkedListBox1.Items.Add(location);
             }
         }
-
         private void UpdateEliminatedLocations()
         {
+            BranchSpecificData.eliminatedLocations.Clear();
             for (int i = 0; i < checkedListBox1.Items.Count; i++)
             {
                 if (checkedListBox1.GetItemChecked(i))
@@ -46,14 +53,25 @@ namespace BlankLocations
                     }
                 }
             }
+            BranchSpecificData.eliminatedLocations.Sort();
+        }
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            //add error handling
+            BranchSpecificData.lastDigitChanges.Add(tbLastDigitChanges.Text);
+            lbLastDigitChanges.Items.Add(tbLastDigitChanges.Text);
         }
 
-        public void GetDistinctLocations()
+        private void btnRun_Click(object sender, EventArgs e)
         {
-            List<string> distinctList = G05.locations.Values.Distinct().ToList();
-            distinctList.Sort();
-            AddItemsToListBox(distinctList);
-            Console.WriteLine();
+            
+            UpdaterLogic.CalculateBlankLocationValues();
+        }
+
+        private void btnOpenReport_Click(object sender, EventArgs e)
+        {
+            UpdaterLogic.Init("");
+            AddItemsTocheckedListBox(UpdaterLogic.GetDistinctLocations());
         }
     }
 }

@@ -9,5 +9,6 @@ namespace BlankLocations
     public static class BranchSpecificData
     {
         public static List<string> eliminatedLocations = new List<string>();
+        public static List<string> lastDigitChanges = new List<string>();
     }
 }
