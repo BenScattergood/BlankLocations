@@ -28,21 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnOpenReport = new System.Windows.Forms.Button();
             this.btnRun = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.lbLastDigitChanges = new System.Windows.Forms.ListBox();
+            this.lb_lastDigitChanges = new System.Windows.Forms.ListBox();
             this.tbLastDigitChanges = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lb_eliminatedLocations = new System.Windows.Forms.ListBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.clb_locations = new System.Windows.Forms.CheckedListBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnOpenReport = new System.Windows.Forms.Button();
+            this.bs_eliminatedLocations = new System.Windows.Forms.BindingSource(this.components);
+            this.bs_lastDigitChanges = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bs_eliminatedLocations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs_lastDigitChanges)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -74,15 +79,25 @@
             this.panel1.Controls.Add(this.btnOpenReport);
             this.panel1.Controls.Add(this.btnRun);
             this.panel1.Controls.Add(this.btnAdd);
-            this.panel1.Controls.Add(this.lbLastDigitChanges);
+            this.panel1.Controls.Add(this.lb_lastDigitChanges);
             this.panel1.Controls.Add(this.tbLastDigitChanges);
-            this.panel1.Controls.Add(this.listBox1);
+            this.panel1.Controls.Add(this.lb_eliminatedLocations);
             this.panel1.Controls.Add(this.btnSave);
-            this.panel1.Controls.Add(this.checkedListBox1);
+            this.panel1.Controls.Add(this.clb_locations);
             this.panel1.Location = new System.Drawing.Point(9, 7);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1107, 654);
             this.panel1.TabIndex = 0;
+            // 
+            // btnOpenReport
+            // 
+            this.btnOpenReport.Location = new System.Drawing.Point(460, 35);
+            this.btnOpenReport.Name = "btnOpenReport";
+            this.btnOpenReport.Size = new System.Drawing.Size(168, 23);
+            this.btnOpenReport.TabIndex = 7;
+            this.btnOpenReport.Text = "Open Report";
+            this.btnOpenReport.UseVisualStyleBackColor = true;
+            this.btnOpenReport.Click += new System.EventHandler(this.btnOpenReport_Click);
             // 
             // btnRun
             // 
@@ -104,13 +119,13 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // lbLastDigitChanges
+            // lb_lastDigitChanges
             // 
-            this.lbLastDigitChanges.FormattingEnabled = true;
-            this.lbLastDigitChanges.Location = new System.Drawing.Point(903, 399);
-            this.lbLastDigitChanges.Name = "lbLastDigitChanges";
-            this.lbLastDigitChanges.Size = new System.Drawing.Size(120, 95);
-            this.lbLastDigitChanges.TabIndex = 4;
+            this.lb_lastDigitChanges.FormattingEnabled = true;
+            this.lb_lastDigitChanges.Location = new System.Drawing.Point(903, 399);
+            this.lb_lastDigitChanges.Name = "lb_lastDigitChanges";
+            this.lb_lastDigitChanges.Size = new System.Drawing.Size(120, 95);
+            this.lb_lastDigitChanges.TabIndex = 4;
             // 
             // tbLastDigitChanges
             // 
@@ -119,13 +134,13 @@
             this.tbLastDigitChanges.Size = new System.Drawing.Size(100, 20);
             this.tbLastDigitChanges.TabIndex = 3;
             // 
-            // listBox1
+            // lb_eliminatedLocations
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(717, 131);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 95);
-            this.listBox1.TabIndex = 2;
+            this.lb_eliminatedLocations.FormattingEnabled = true;
+            this.lb_eliminatedLocations.Location = new System.Drawing.Point(717, 131);
+            this.lb_eliminatedLocations.Name = "lb_eliminatedLocations";
+            this.lb_eliminatedLocations.Size = new System.Drawing.Size(120, 95);
+            this.lb_eliminatedLocations.TabIndex = 2;
             // 
             // btnSave
             // 
@@ -137,13 +152,14 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // checkedListBox1
+            // clb_locations
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(330, 112);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(167, 199);
-            this.checkedListBox1.TabIndex = 0;
+            this.clb_locations.CheckOnClick = true;
+            this.clb_locations.FormattingEnabled = true;
+            this.clb_locations.Location = new System.Drawing.Point(330, 112);
+            this.clb_locations.Name = "clb_locations";
+            this.clb_locations.Size = new System.Drawing.Size(167, 199);
+            this.clb_locations.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -154,16 +170,6 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // btnOpenReport
-            // 
-            this.btnOpenReport.Location = new System.Drawing.Point(460, 35);
-            this.btnOpenReport.Name = "btnOpenReport";
-            this.btnOpenReport.Size = new System.Drawing.Size(168, 23);
-            this.btnOpenReport.TabIndex = 7;
-            this.btnOpenReport.Text = "Open Report";
-            this.btnOpenReport.UseVisualStyleBackColor = true;
-            this.btnOpenReport.Click += new System.EventHandler(this.btnOpenReport_Click);
             // 
             // BlankLocationsReport
             // 
@@ -179,6 +185,8 @@
             this.tabPage2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bs_eliminatedLocations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs_lastDigitChanges)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -189,13 +197,15 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox clb_locations;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox lbLastDigitChanges;
+        private System.Windows.Forms.ListBox lb_eliminatedLocations;
+        private System.Windows.Forms.ListBox lb_lastDigitChanges;
         private System.Windows.Forms.TextBox tbLastDigitChanges;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.Button btnOpenReport;
+        private System.Windows.Forms.BindingSource bs_eliminatedLocations;
+        private System.Windows.Forms.BindingSource bs_lastDigitChanges;
     }
 }

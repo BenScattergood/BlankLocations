@@ -20,7 +20,7 @@ namespace BlankLocations
         public static Worksheet G05_ws1;
         public static Worksheet export_ws1;
         public static Worksheet export_ws2;
-
+        public static bool G05isOpen = false;
 
         public static void PopulateG05(string fileName = "_Test")
         {
@@ -99,7 +99,6 @@ namespace BlankLocations
         }
         public static void Cleanup()
         {
-            G05_wb.Close();
             //Marshal.ReleaseComObject(G05_wb);
             //Marshal.ReleaseComObject(G05.Workbooks);
             //Marshal.ReleaseComObject(G05);

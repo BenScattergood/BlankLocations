@@ -20,7 +20,7 @@ namespace BlankLocations
             wsRange = ExcelFile.ReadRange();
             ExtractExcelDataIntoLocationsAndBlanks();
         }
-        public static void CalculateBlankLocationValues()
+        public static void OperationCaller()
         {
             CalculateBlankValues();
             Populate_calculatedBlanks_Shrink_Blanks();
@@ -51,20 +51,91 @@ namespace BlankLocations
         {
             for (int i = 0; i < blanks.Count; i++)
             {
-                locations.Add(blanks[i].Item1, blanks[i].Item3);
-                int currentPosition = ReturnPositionInDictionary(blanks[i].Item1);
-                var previous = locations.ElementAtOrDefault(currentPosition - 1);
-                var next = locations.ElementAtOrDefault(currentPosition + 1);
-                if (previous.Value == next.Value)
+                var blank = blanks[i];
+                locations.Add(blank.Item1, blank.Item3);
+                KeyValuePair<string, string> before, after;
+                ReturnAdjacentPairs(blank, out before, out after);
+
+                try
                 {
-                    var currentItem = blanks.ElementAt(i);
-                    var replacement = Tuple.Create(currentItem.Item1, currentItem.Item2,
-                        next.Value, currentItem.Item4);
-                    blanks.RemoveAt(i);
-                    blanks.Insert(i, replacement);
+                    if (before.Value == after.Value)
+                    {
+                        var currentItem = blanks.ElementAt(i);
+                        var replacement = Tuple.Create(currentItem.Item1, currentItem.Item2,
+                            after.Value, currentItem.Item4);
+                        blanks.RemoveAt(i);
+                        blanks.Insert(i, replacement);
+                    }
                 }
+                catch (Exception e)
+                {
+
+                }
+                
                 locations.Remove(blanks[i].Item1);
             }
+
+        }
+
+        private static void ReturnAdjacentPairs(Tuple<string, string, string, string> blank, out KeyValuePair<string, string> before, out KeyValuePair<string, string> after)
+        {
+            var currentPosition = ReturnPositionInDictionary(blank.Item1);
+            string productGroup = blank.Item1.Substring(0, 3);
+            bool requiresSameLastDigit = BranchSpecificData.
+                lastDigitChanges.Contains(productGroup);
+            string lastDigit = blank.Item1.Substring(blank.Item1.Length - 1, 1);
+            int increment = 0;
+            do
+            {
+                increment--;
+                if (isCorrectValue(currentPosition, increment,
+                    requiresSameLastDigit, lastDigit, out before))
+                {
+                    break;
+                }
+            } while (increment > -50);
+
+            increment = 0;
+            do
+            {
+                increment++;
+                if (isCorrectValue(currentPosition, increment,
+                    requiresSameLastDigit, lastDigit, out after))
+                {
+                    break;
+                }
+            } while (increment < 50);
+        }
+
+        private static bool isCorrectValue(int currentPosition, int increment, 
+            bool requiresSameLastDigit, string lastDigit, 
+            out KeyValuePair<string, string> pair)
+        {
+            pair = ReturnPreviousAndNextValues(currentPosition, + increment);
+            if (requiresSameLastDigit)
+            {
+                bool matchesLastDigit = pair.Key.
+                    Substring(pair.Key.Length - 1, 1) == lastDigit;
+                if (matchesLastDigit)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private static KeyValuePair<string, string>ReturnPreviousAndNextValues
+            (int currentPosition, int movePosition)
+        {
+            var pair = locations.ElementAtOrDefault(currentPosition + movePosition);
+            return pair;
         }
         public static string[,] WriteRange(bool calculated)
         {

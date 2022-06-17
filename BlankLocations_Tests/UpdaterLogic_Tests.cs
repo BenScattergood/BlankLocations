@@ -33,16 +33,18 @@ namespace BlankLocations_Tests
         [TestMethod]
         public void CalculateBlankLocationValues_Test()
         {
-            UpdaterLogic.CalculateBlankLocationValues();
-            Assert.AreEqual("549777551", UpdaterLogic.blanks[7].Item1);
+            BranchSpecificData.lastDigitChanges.Add("627");
+            BranchSpecificData.lastDigitChanges.Add("504");
+            UpdaterLogic.OperationCaller();
+            Assert.AreEqual("627880031", UpdaterLogic.blanks[12].Item1);
+            Assert.AreEqual("549777551", UpdaterLogic.blanks[8].Item1);
             Assert.AreEqual("11T18", UpdaterLogic.calculatedBlanks[12].Item3);
-            Assert.AreEqual("11Q01", UpdaterLogic.calculatedBlanks[34].Item3);
-            Assert.AreNotEqual("11Q02", UpdaterLogic.calculatedBlanks[34].Item3);
+            Assert.AreEqual("11Q01", UpdaterLogic.calculatedBlanks[33].Item3);
+            Assert.AreNotEqual("11Q02", UpdaterLogic.calculatedBlanks[33].Item3);
         }
         [TestCleanup]
         public void Cleanup()
         {
-            ExcelFile.Cleanup();
             UpdaterLogic.CleanUp();
         }
     }

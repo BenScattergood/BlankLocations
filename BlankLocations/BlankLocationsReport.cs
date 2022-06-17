@@ -21,32 +21,24 @@ namespace BlankLocations
         private void btnSave_Click(object sender, EventArgs e)
         {
             UpdateEliminatedLocations();
-            AddItemsToListBox();
-        }
-        private void AddItemsToListBox()
-        {
-            listBox1.Items.Clear();
-            foreach (var location in BranchSpecificData.eliminatedLocations)
-            {
-                listBox1.Items.Add(location);
-            }
+            UpdateBindingSource();
         }
         private void AddItemsTocheckedListBox(List<string> locations)
         {
-            checkedListBox1.Items.Clear();
+            clb_locations.Items.Clear();
             foreach (var location in locations)
             {
-                checkedListBox1.Items.Add(location);
+                clb_locations.Items.Add(location);
             }
         }
         private void UpdateEliminatedLocations()
         {
             BranchSpecificData.eliminatedLocations.Clear();
-            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            for (int i = 0; i < clb_locations.Items.Count; i++)
             {
-                if (checkedListBox1.GetItemChecked(i))
+                if (clb_locations.GetItemChecked(i))
                 {
-                    var item = checkedListBox1.Items[i];
+                    var item = clb_locations.Items[i];
                     if (!BranchSpecificData.eliminatedLocations.Contains(item.ToString()))
                     {
                         BranchSpecificData.eliminatedLocations.Add(item.ToString());
@@ -59,19 +51,30 @@ namespace BlankLocations
         {
             //add error handling
             BranchSpecificData.lastDigitChanges.Add(tbLastDigitChanges.Text);
-            lbLastDigitChanges.Items.Add(tbLastDigitChanges.Text);
+            BranchSpecificData.lastDigitChanges.Sort();
+            UpdateBindingSource();
         }
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            
-            UpdaterLogic.CalculateBlankLocationValues();
+            UpdaterLogic.OperationCaller();
         }
 
         private void btnOpenReport_Click(object sender, EventArgs e)
         {
             UpdaterLogic.Init("");
             AddItemsTocheckedListBox(UpdaterLogic.GetDistinctLocations());
+            UpdateBindingSource();
+        }
+        public void UpdateBindingSource()
+        {
+            bs_eliminatedLocations.DataSource = BranchSpecificData.eliminatedLocations;
+            lb_eliminatedLocations.DataSource = bs_eliminatedLocations;
+            bs_eliminatedLocations.ResetBindings(false);
+
+            bs_lastDigitChanges.DataSource = BranchSpecificData.lastDigitChanges;
+            lb_lastDigitChanges.DataSource = bs_lastDigitChanges;
+            bs_lastDigitChanges.ResetBindings(false);
         }
     }
 }
