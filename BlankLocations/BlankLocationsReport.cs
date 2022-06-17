@@ -23,12 +23,20 @@ namespace BlankLocations
             UpdateEliminatedLocations();
             UpdateBindingSource();
         }
-        private void AddItemsTocheckedListBox(List<string> locations)
+        private void AddItemsToclb_locations(List<string> locations)
         {
             clb_locations.Items.Clear();
             foreach (var location in locations)
             {
                 clb_locations.Items.Add(location);
+            }
+        }
+        private void AddItemsToclb_lastDigitChanges(List<string> locations)
+        {
+            clb_lastDigitChanges.Items.Clear();
+            foreach (var location in locations)
+            {
+                clb_lastDigitChanges.Items.Add(location);
             }
         }
         private void UpdateEliminatedLocations()
@@ -47,11 +55,25 @@ namespace BlankLocations
             }
             BranchSpecificData.eliminatedLocations.Sort();
         }
+        private void UpdateLastDigitChanges()
+        {
+            BranchSpecificData.lastDigitChanges.Clear();
+            for (int i = 0; i < clb_lastDigitChanges.Items.Count; i++)
+            {
+                if (clb_lastDigitChanges.GetItemChecked(i))
+                {
+                    var item = clb_lastDigitChanges.Items[i];
+                    if (!BranchSpecificData.lastDigitChanges.Contains(item.ToString()))
+                    {
+                        BranchSpecificData.lastDigitChanges.Add(item.ToString());
+                    }
+                }
+            }
+            BranchSpecificData.lastDigitChanges.Sort();
+        }
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            //add error handling
-            BranchSpecificData.lastDigitChanges.Add(tbLastDigitChanges.Text);
-            BranchSpecificData.lastDigitChanges.Sort();
+            UpdateLastDigitChanges();
             UpdateBindingSource();
         }
 
@@ -63,7 +85,8 @@ namespace BlankLocations
         private void btnOpenReport_Click(object sender, EventArgs e)
         {
             UpdaterLogic.Init("");
-            AddItemsTocheckedListBox(UpdaterLogic.GetDistinctLocations());
+            AddItemsToclb_locations(UpdaterLogic.GetDistinctLocations());
+            AddItemsToclb_lastDigitChanges(UpdaterLogic.GetDistinctProductGroups());
             UpdateBindingSource();
         }
         public void UpdateBindingSource()

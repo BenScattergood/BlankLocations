@@ -36,13 +36,13 @@
             this.btnRun = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.lb_lastDigitChanges = new System.Windows.Forms.ListBox();
-            this.tbLastDigitChanges = new System.Windows.Forms.TextBox();
             this.lb_eliminatedLocations = new System.Windows.Forms.ListBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.clb_locations = new System.Windows.Forms.CheckedListBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.bs_eliminatedLocations = new System.Windows.Forms.BindingSource(this.components);
             this.bs_lastDigitChanges = new System.Windows.Forms.BindingSource(this.components);
+            this.clb_lastDigitChanges = new System.Windows.Forms.CheckedListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -76,11 +76,11 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel1.Controls.Add(this.clb_lastDigitChanges);
             this.panel1.Controls.Add(this.btnOpenReport);
             this.panel1.Controls.Add(this.btnRun);
             this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Controls.Add(this.lb_lastDigitChanges);
-            this.panel1.Controls.Add(this.tbLastDigitChanges);
             this.panel1.Controls.Add(this.lb_eliminatedLocations);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.clb_locations);
@@ -127,13 +127,6 @@
             this.lb_lastDigitChanges.Size = new System.Drawing.Size(120, 95);
             this.lb_lastDigitChanges.TabIndex = 4;
             // 
-            // tbLastDigitChanges
-            // 
-            this.tbLastDigitChanges.Location = new System.Drawing.Point(623, 399);
-            this.tbLastDigitChanges.Name = "tbLastDigitChanges";
-            this.tbLastDigitChanges.Size = new System.Drawing.Size(100, 20);
-            this.tbLastDigitChanges.TabIndex = 3;
-            // 
             // lb_eliminatedLocations
             // 
             this.lb_eliminatedLocations.FormattingEnabled = true;
@@ -171,6 +164,15 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // clb_lastDigitChanges
+            // 
+            this.clb_lastDigitChanges.CheckOnClick = true;
+            this.clb_lastDigitChanges.FormattingEnabled = true;
+            this.clb_lastDigitChanges.Location = new System.Drawing.Point(340, 317);
+            this.clb_lastDigitChanges.Name = "clb_lastDigitChanges";
+            this.clb_lastDigitChanges.Size = new System.Drawing.Size(167, 199);
+            this.clb_lastDigitChanges.TabIndex = 8;
+            // 
             // BlankLocationsReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -184,7 +186,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bs_eliminatedLocations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs_lastDigitChanges)).EndInit();
             this.ResumeLayout(false);
@@ -201,11 +202,11 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ListBox lb_eliminatedLocations;
         private System.Windows.Forms.ListBox lb_lastDigitChanges;
-        private System.Windows.Forms.TextBox tbLastDigitChanges;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.Button btnOpenReport;
         private System.Windows.Forms.BindingSource bs_eliminatedLocations;
         private System.Windows.Forms.BindingSource bs_lastDigitChanges;
+        private System.Windows.Forms.CheckedListBox clb_lastDigitChanges;
     }
 }

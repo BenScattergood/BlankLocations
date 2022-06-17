@@ -53,12 +53,14 @@ namespace BlankLocations
             {
                 var blank = blanks[i];
                 locations.Add(blank.Item1, blank.Item3);
+                string productGroup = blank.Item1.Substring(0, 3);
                 KeyValuePair<string, string> before, after;
-                ReturnAdjacentPairs(blank, out before, out after);
+                ReturnAdjacentPairs(blank, productGroup, out before, out after);
+                
 
                 try
                 {
-                    if (before.Value == after.Value)
+                    if (areValidAdjacentPairs(blank, productGroup, before, after))
                     {
                         var currentItem = blanks.ElementAt(i);
                         var replacement = Tuple.Create(currentItem.Item1, currentItem.Item2,
@@ -71,16 +73,37 @@ namespace BlankLocations
                 {
 
                 }
-                
                 locations.Remove(blanks[i].Item1);
             }
 
         }
 
-        private static void ReturnAdjacentPairs(Tuple<string, string, string, string> blank, out KeyValuePair<string, string> before, out KeyValuePair<string, string> after)
+        private static bool areValidAdjacentPairs(Tuple<string, string, string, string> blank, 
+            string productGroup, KeyValuePair<string, string> before, KeyValuePair<string, string> after)
+        {
+            if (before.Value == after.Value)
+            {
+                return true;
+            }
+            else if (before.Key.Substring(0, 3) != productGroup && after.Value == blank.Item3)
+            {
+                return true;
+            }
+            else if (after.Key.Substring(0, 3) != productGroup && before.Value == blank.Item3)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static void ReturnAdjacentPairs(Tuple<string, string, string, string> blank, 
+            string productGroup, out KeyValuePair<string, string> before, 
+            out KeyValuePair<string, string> after)
         {
             var currentPosition = ReturnPositionInDictionary(blank.Item1);
-            string productGroup = blank.Item1.Substring(0, 3);
             bool requiresSameLastDigit = BranchSpecificData.
                 lastDigitChanges.Contains(productGroup);
             string lastDigit = blank.Item1.Substring(blank.Item1.Length - 1, 1);
@@ -203,6 +226,24 @@ namespace BlankLocations
             List<string> distinctList = UpdaterLogic.locations.Values.Distinct().ToList();
             distinctList.Sort();
             return distinctList;
+        }
+
+        public static List<string> GetDistinctProductGroups()
+        {
+            List<string> parts = new List<string>();
+            string lastAddedPart = null;
+            foreach (var part in locations)
+            {
+                if (lastAddedPart != part.Key.Substring(0, 3))
+                {
+                    if (!parts.Contains(part.Key.Substring(0, 3)))
+                    {
+                        parts.Add(part.Key.Substring(0, 3));
+                        lastAddedPart = part.Key.Substring(0, 3);
+                    }
+                }
+            }
+            return parts;
         }
         public static void CleanUp()
         {
