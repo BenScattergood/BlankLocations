@@ -46,13 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlankLocationsReport.cs">
+    <Compile Include="BlankLocationsUpdater.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BlankLocationsReport.Designer.cs">
-      <DependentUpon>BlankLocationsReport.cs</DependentUpon>
+    <Compile Include="BlankLocationsUpdater.Designer.cs">
+      <DependentUpon>BlankLocationsUpdater.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BlankLocationsUpdaterRunOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BlankLocationsUpdaterRunOptions.Designer.cs">
+      <DependentUpon>BlankLocationsUpdaterRunOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="BranchSpecificData.cs" />
+    <Compile Include="NoReportSelected.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NoReportSelected.Designer.cs">
+      <DependentUpon>NoReportSelected.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportsDesktop.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,8 +76,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdaterLogic.cs" />
-    <EmbeddedResource Include="BlankLocationsReport.resx">
-      <DependentUpon>BlankLocationsReport.cs</DependentUpon>
+    <EmbeddedResource Include="BlankLocationsUpdater.resx">
+      <DependentUpon>BlankLocationsUpdater.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BlankLocationsUpdaterRunOptions.resx">
+      <DependentUpon>BlankLocationsUpdaterRunOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NoReportSelected.resx">
+      <DependentUpon>NoReportSelected.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsDesktop.resx">
       <DependentUpon>ReportsDesktop.cs</DependentUpon>

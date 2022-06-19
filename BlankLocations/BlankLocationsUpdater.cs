@@ -10,18 +10,34 @@ using System.Windows.Forms;
 
 namespace BlankLocations
 {
-    public partial class BlankLocationsReport : Form
+    public partial class BlankLocationsUpdater : Form
     {
-        public BlankLocationsReport(Size panelSize)
+        public UpdaterLogic currentVersionLogic;
+        public BlankLocationsUpdater(Size panelSize)
         {
             InitializeComponent();
             panel1.Size = panelSize;
+            OpenReport();
+        }
+        public void LoadForm(object Form)
+        {
+            for (int i = panel1.Controls.Count; i > 0; i--)
+            {
+                this.panel1.Controls.RemoveAt(0);
+            }
+            Form f = (Form)Form;
+            f.TopLevel = false;
+            f.Dock = DockStyle.Fill;
+            this.panel1.Controls.Add(f);
+            this.panel1.Tag = f;
+            f.Show();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             UpdateEliminatedLocations();
             UpdateBindingSource();
+            BranchSpecificData.SaveToFile();
         }
         private void AddItemsToclb_locations(List<string> locations)
         {
@@ -30,6 +46,16 @@ namespace BlankLocations
             {
                 clb_locations.Items.Add(location);
             }
+            foreach (string location in BranchSpecificData.eliminatedLocations)
+            {
+                for (int i = 0; i < clb_locations.Items.Count; i++)
+                {
+                    if (clb_locations.Items[i].ToString() == location)
+                    {
+                        clb_locations.SetItemChecked(i, true);
+                    }
+                }
+            }
         }
         private void AddItemsToclb_lastDigitChanges(List<string> locations)
         {
@@ -37,6 +63,16 @@ namespace BlankLocations
             foreach (var location in locations)
             {
                 clb_lastDigitChanges.Items.Add(location);
+            }
+            foreach (string PN in BranchSpecificData.lastDigitChanges)
+            {
+                for (int i = 0; i < clb_lastDigitChanges.Items.Count; i++)
+                {
+                    if (clb_lastDigitChanges.Items[i].ToString() == PN)
+                    {
+                        clb_lastDigitChanges.SetItemChecked(i, true);
+                    }
+                }
             }
         }
         private void UpdateEliminatedLocations()
@@ -75,18 +111,20 @@ namespace BlankLocations
         {
             UpdateLastDigitChanges();
             UpdateBindingSource();
+            BranchSpecificData.SaveToFile();
         }
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            UpdaterLogic.OperationCaller();
+            currentVersionLogic.OperationCaller();
         }
-
-        private void btnOpenReport_Click(object sender, EventArgs e)
+        public void OpenReport()
         {
-            UpdaterLogic.Init("");
-            AddItemsToclb_locations(UpdaterLogic.GetDistinctLocations());
-            AddItemsToclb_lastDigitChanges(UpdaterLogic.GetDistinctProductGroups());
+            currentVersionLogic = new UpdaterLogic("");
+            BranchSpecificData.ReadDataFromFile();
+            AddItemsToclb_locations(currentVersionLogic.GetDistinctLocations());
+            AddItemsToclb_lastDigitChanges(currentVersionLogic.GetDistinctProductGroups());
+            
             UpdateBindingSource();
         }
         public void UpdateBindingSource()
@@ -98,6 +136,11 @@ namespace BlankLocations
             bs_lastDigitChanges.DataSource = BranchSpecificData.lastDigitChanges;
             lb_lastDigitChanges.DataSource = bs_lastDigitChanges;
             bs_lastDigitChanges.ResetBindings(false);
+        }
+
+        private void BlankLocationsUpdater_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            currentVersionLogic.CleanUp();
         }
     }
 }

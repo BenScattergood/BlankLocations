@@ -12,21 +12,26 @@ namespace BlankLocations
 {
     public partial class ReportsDesktop : Form
     {
+        public BlankLocationsUpdater blankLocationUpdater;
         public ReportsDesktop()
         {
             InitializeComponent();
             toolStrip1.Renderer = new MySR();
+            Size panelSize = splitContainer1.Panel2.Size;
+            LoadForm(new NoReportSelected(panelSize));
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        public void LoadForm(object Form)
         {
-            var temp = this.Size;
-            Console.WriteLine();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            for (int i = splitContainer1.Panel2.Controls.Count; i > 0; i--)
+            {
+                this.splitContainer1.Panel2.Controls.RemoveAt(0);
+            }
+            var f = (Form)Form;
+            f.TopLevel = false;
+            f.Dock = DockStyle.Fill;
+            this.splitContainer1.Panel2.Controls.Add(f);
+            this.splitContainer1.Panel2.Tag = f;
+            f.Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -34,24 +39,35 @@ namespace BlankLocations
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             this.WindowState = FormWindowState.Maximized;
         }
-        public void LoadForm(object Form)
-        {
-            for (int i = panel1.Controls.Count; i > 0; i--)
-            {
-                this.panel1.Controls.RemoveAt(0);
-            }
-            Form f = (Form)Form;
-            f.TopLevel = false;
-            f.Dock = DockStyle.Fill;
-            this.panel1.Controls.Add(f);
-            this.panel1.Tag = f;
-            f.Show();
-        }
+        
 
         private void listBox1_Click(object sender, EventArgs e)
         {
-            Size panelSize = panel1.Size;
-            LoadForm(new BlankLocationsReport(panelSize));
+            if (blankLocationUpdater != null)
+            {
+                MessageBox.Show("Report already running");
+            }
+            var form2 = new BlankLocationsUpdaterRunOptions();
+            form2.ShowDialog();
+            if (form2.DialogResult == DialogResult.OK)
+            {
+                Size panelSize = splitContainer1.Panel2.Size;
+                blankLocationUpdater = new BlankLocationsUpdater(panelSize);
+                LoadForm(blankLocationUpdater);
+            }   
+        }
+
+        private void tsBtnClose_Click(object sender, EventArgs e)
+        {
+            if (blankLocationUpdater == null)
+            {
+                return;
+            }
+            blankLocationUpdater.currentVersionLogic.CleanUp();
+            blankLocationUpdater.Close();
+            Size panelSize = splitContainer1.Panel2.Size;
+            LoadForm(new NoReportSelected(panelSize));
+            blankLocationUpdater = null;
         }
     }
     

@@ -24,15 +24,44 @@ namespace BlankLocations
 
         public static void PopulateG05(string fileName = "_Test")
         {
-            G05_path = $@"C:\Users\Ben\Desktop\C#\ECP\Stock_Listed_By_PN" + fileName + ".xlsx";
-            G05 = new _excel.Application();
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            BranchSpecificData.folderPath = path + $@"\C#\ECP";
+            
+            G05_path = BranchSpecificData.folderPath + $@"\Stock_Listed_By_PN" + fileName + ".xlsx";
+            try
+            {
+                G05 = new _excel.Application();
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show($"Unable To Access Excel Application \n {e.Message}");
+                throw;
+            }
+            
             var workbooks = G05.Workbooks;
-            G05_wb = workbooks.Open(G05_path);
-            G05_ws1 = G05_wb.Worksheets[1];
+            try
+            {
+                G05_wb = workbooks.Open(G05_path);
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show($"File not found \n {e.Message}");
+                throw;
+            }
+            try
+            {
+                G05_ws1 = G05_wb.Worksheets[1];
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show($"There was a problem with the file \n {e.Message}");
+                throw;
+            }
+            
         }
         public static string[,] ReadRange()
         {
-            Range range = (Range)G05_ws1.Range[G05_ws1.Cells[1, 1], G05_ws1.Cells[30000, 4]];
+            Range range = (Range)G05_ws1.Range[G05_ws1.Cells[1, 1], G05_ws1.Cells[300000, 4]];
             object[,] holder = range.Value2;
             int linesInFile = LinesInFile(holder);
             string[,] returnString = new string[linesInFile, 4];
@@ -53,13 +82,12 @@ namespace BlankLocations
                     returnString[r - 1, c - 1] = strTemp;
                 }
             }
-            Marshal.ReleaseComObject(range);
             return returnString;
         }
         private static int LinesInFile(object[,] holder)
         {
             int count = 0;
-            for (int i = 1; i <= 30000; i++)
+            for (int i = 1; i <= 300000; i++)
             {
                 if (holder[i, 1] == null)
                 {
@@ -81,18 +109,19 @@ namespace BlankLocations
             export_ws2 = export_wb.Worksheets[2];
         }
         
-        public static void WriteToExcel(string[,] writeString, bool calculated)
+        public static void WriteToExcel(string[,] writeString, bool calculated,
+            UpdaterLogic currentVersion)
         {
             Range range = null;
             if (calculated)
             {
                 range = (Range)export_ws1.Range[export_ws1.Cells[1, 1],
-                    export_ws1.Cells[UpdaterLogic.calculatedBlanks.Count + 1, 2]];
+                    export_ws1.Cells[currentVersion.calculatedBlanks.Count + 1, 2]];
             }
             else
             {
                 range = (Range)export_ws2.Range[export_ws2.Cells[1, 1],
-                    export_ws2.Cells[UpdaterLogic.blanks.Count + 1, 4]];
+                    export_ws2.Cells[currentVersion.blanks.Count + 1, 4]];
             }
 
             range.Value2 = writeString;

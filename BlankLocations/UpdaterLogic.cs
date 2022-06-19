@@ -3,35 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace BlankLocations
 {
-    public static class UpdaterLogic
+    public class UpdaterLogic
     {
-        public static SortedDictionary<string, string> locations = new SortedDictionary<string, string>();
-        public static List<Tuple<string, string, string, string>> blanks =
+        public SortedDictionary<string, string> locations = new SortedDictionary<string, string>();
+        public List<Tuple<string, string, string, string>> blanks =
             new List<Tuple<string, string, string, string>>();
-        public static List<Tuple<string, string, string, string>> calculatedBlanks =
+        public List<Tuple<string, string, string, string>> calculatedBlanks =
             new List<Tuple<string, string, string, string>>();
-        public static string[,] wsRange;
-        public static void Init(string fileName = "_Test")
+        public string[,] wsRange;
+        public UpdaterLogic(string fileName = "_Test")
         {
             ExcelFile.PopulateG05(fileName);
             wsRange = ExcelFile.ReadRange();
+            if (!G05DataIsValid())
+            {
+                //needs work
+                throw new InvalidDataException("Your G05 file appears to be invalid");
+            }
             ExtractExcelDataIntoLocationsAndBlanks();
         }
-        public static void OperationCaller()
+        public void OperationCaller()
         {
             CalculateBlankValues();
             Populate_calculatedBlanks_Shrink_Blanks();
             ExcelFile.CreateExportFile();
             bool useCalculated = true;
-            ExcelFile.WriteToExcel(WriteRange(useCalculated), useCalculated);
-            ExcelFile.WriteToExcel(WriteRange(!useCalculated), !useCalculated);
+            ExcelFile.WriteToExcel(WriteRange(useCalculated), useCalculated, this);
+            ExcelFile.WriteToExcel(WriteRange(!useCalculated), !useCalculated, this);
             ExcelFile.export_wb.Application.Visible = true;
             ExcelFile.Cleanup();
         }
-        public static void ExtractExcelDataIntoLocationsAndBlanks()
+        public void ExtractExcelDataIntoLocationsAndBlanks()
         {
             for (int r = 1; r <= wsRange.GetUpperBound(0); r++)
             {
@@ -47,29 +53,34 @@ namespace BlankLocations
                 }
             }
         }
-        private static void CalculateBlankValues()
+        private void CalculateBlankValues()
         {
             for (int i = 0; i < blanks.Count; i++)
             {
                 var blank = blanks[i];
+                if (blank.Item1.Length < 3)
+                {
+                    continue;
+                }
                 locations.Add(blank.Item1, blank.Item3);
                 string productGroup = blank.Item1.Substring(0, 3);
                 KeyValuePair<string, string> before, after;
                 ReturnAdjacentPairs(blank, productGroup, out before, out after);
-                
-
                 try
                 {
-                    if (areValidAdjacentPairs(blank, productGroup, before, after))
+                    if (areValidAdjacentPairs(blank, productGroup, before, after, out string location))
                     {
-                        var currentItem = blanks.ElementAt(i);
-                        var replacement = Tuple.Create(currentItem.Item1, currentItem.Item2,
-                            after.Value, currentItem.Item4);
-                        blanks.RemoveAt(i);
-                        blanks.Insert(i, replacement);
+                        if (!BranchSpecificData.eliminatedLocations.Contains(location))
+                        {
+                            var currentItem = blanks.ElementAt(i);
+                            var replacement = Tuple.Create(currentItem.Item1, currentItem.Item2,
+                                location, currentItem.Item4);
+                            blanks.RemoveAt(i);
+                            blanks.Insert(i, replacement);
+                        }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
 
                 }
@@ -78,28 +89,33 @@ namespace BlankLocations
 
         }
 
-        private static bool areValidAdjacentPairs(Tuple<string, string, string, string> blank, 
-            string productGroup, KeyValuePair<string, string> before, KeyValuePair<string, string> after)
+        private bool areValidAdjacentPairs(Tuple<string, string, string, string> blank, 
+            string productGroup, KeyValuePair<string, string> before,
+            KeyValuePair<string, string> after, out string location)
         {
             if (before.Value == after.Value)
             {
+                location = before.Value;
                 return true;
             }
             else if (before.Key.Substring(0, 3) != productGroup && after.Value == blank.Item3)
             {
+                location = after.Value;
                 return true;
             }
             else if (after.Key.Substring(0, 3) != productGroup && before.Value == blank.Item3)
             {
+                location = before.Value;
                 return true;
             }
             else
             {
+                location = null;
                 return false;
             }
         }
 
-        private static void ReturnAdjacentPairs(Tuple<string, string, string, string> blank, 
+        private void ReturnAdjacentPairs(Tuple<string, string, string, string> blank, 
             string productGroup, out KeyValuePair<string, string> before, 
             out KeyValuePair<string, string> after)
         {
@@ -130,11 +146,15 @@ namespace BlankLocations
             } while (increment < 50);
         }
 
-        private static bool isCorrectValue(int currentPosition, int increment, 
+        private bool isCorrectValue(int currentPosition, int increment, 
             bool requiresSameLastDigit, string lastDigit, 
             out KeyValuePair<string, string> pair)
         {
             pair = ReturnPreviousAndNextValues(currentPosition, + increment);
+            if (pair.Key == null)
+            {
+                //return null; I'm up to here...
+            }
             if (requiresSameLastDigit)
             {
                 bool matchesLastDigit = pair.Key.
@@ -154,13 +174,13 @@ namespace BlankLocations
             }
         }
 
-        private static KeyValuePair<string, string>ReturnPreviousAndNextValues
+        private KeyValuePair<string, string>ReturnPreviousAndNextValues
             (int currentPosition, int movePosition)
         {
             var pair = locations.ElementAtOrDefault(currentPosition + movePosition);
             return pair;
         }
-        public static string[,] WriteRange(bool calculated)
+        public string[,] WriteRange(bool calculated)
         {
             string[,] writeString;
             int count = 1;
@@ -196,7 +216,7 @@ namespace BlankLocations
             }
             return writeString;
         }
-        private static void Populate_calculatedBlanks_Shrink_Blanks()
+        private void Populate_calculatedBlanks_Shrink_Blanks()
         {
             for (int i = 0; i < blanks.Count; i++)
             {
@@ -208,7 +228,7 @@ namespace BlankLocations
                 }
             }
         }
-        private static int ReturnPositionInDictionary(string currentBlank)
+        private int ReturnPositionInDictionary(string currentBlank)
         {
             int count = 0;
             foreach (var item in locations)
@@ -221,31 +241,56 @@ namespace BlankLocations
             }
             return 0;
         }
-        public static List<string> GetDistinctLocations()
+        public List<string> GetDistinctLocations()
         {
-            List<string> distinctList = UpdaterLogic.locations.Values.Distinct().ToList();
+            List<string> distinctList = this.locations.Values.Distinct().ToList();
             distinctList.Sort();
             return distinctList;
         }
 
-        public static List<string> GetDistinctProductGroups()
+        public List<string> GetDistinctProductGroups()
         {
             List<string> parts = new List<string>();
             string lastAddedPart = null;
             foreach (var part in locations)
             {
-                if (lastAddedPart != part.Key.Substring(0, 3))
+                if (part.Key.Length > 3)
                 {
-                    if (!parts.Contains(part.Key.Substring(0, 3)))
+                    if (lastAddedPart != part.Key.Substring(0, 3))
                     {
-                        parts.Add(part.Key.Substring(0, 3));
-                        lastAddedPart = part.Key.Substring(0, 3);
+                        if (!parts.Contains(part.Key.Substring(0, 3)))
+                        {
+                            parts.Add(part.Key.Substring(0, 3));
+                            lastAddedPart = part.Key.Substring(0, 3);
+                        }
                     }
                 }
             }
             return parts;
         }
-        public static void CleanUp()
+        private bool G05DataIsValid()
+        {
+            for (int i = 1; i < wsRange.GetUpperBound(0); i++)
+            {
+                string c1 = wsRange[i, 0];
+                if (c1.Length > 50)
+                {
+                    return false;
+                }
+                string c2 = wsRange[i, 1];
+                if (!int.TryParse(c2, out int temp))
+                {
+                    return false;
+                }
+                string c3 = wsRange[i, 2];
+                if (c3.Length > 10)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public void CleanUp()
         {
             locations.Clear();
             blanks.Clear();
