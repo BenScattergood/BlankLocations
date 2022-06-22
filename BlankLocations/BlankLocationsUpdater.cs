@@ -13,10 +13,15 @@ namespace BlankLocations
     public partial class BlankLocationsUpdater : Form
     {
         public UpdaterLogic currentVersionLogic;
-        public BlankLocationsUpdater(Size panelSize)
+        private Size panelSize;
+        private Label lb2;
+
+        public BlankLocationsUpdater(Size panelSize, Label lb2)
         {
             InitializeComponent();
             panel1.Size = panelSize;
+            this.panelSize = panelSize;
+            this.lb2 = lb2;
             OpenReport();
         }
         public void LoadForm(object Form)
@@ -32,99 +37,48 @@ namespace BlankLocations
             this.panel1.Tag = f;
             f.Show();
         }
-
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnAdd_LastDigitChanges_Click(object sender, EventArgs e)
         {
-            UpdateEliminatedLocations();
-            UpdateBindingSource();
-            BranchSpecificData.SaveToFile();
-        }
-        private void AddItemsToclb_locations(List<string> locations)
-        {
-            clb_locations.Items.Clear();
-            foreach (var location in locations)
+            var form2 = new BranchSetup_Add.LastDigitChanges(currentVersionLogic.GetDistinctProductGroups());
+            form2.ShowDialog();
+            if (form2.DialogResult == DialogResult.OK)
             {
-                clb_locations.Items.Add(location);
-            }
-            foreach (string location in BranchSpecificData.eliminatedLocations)
-            {
-                for (int i = 0; i < clb_locations.Items.Count; i++)
+                BranchSpecificData.lastDigitChanges.Clear();
+                foreach (var item in form2.lastDigitChanges)
                 {
-                    if (clb_locations.Items[i].ToString() == location)
-                    {
-                        clb_locations.SetItemChecked(i, true);
-                    }
+                    BranchSpecificData.lastDigitChanges.Add(item);
                 }
+                UpdateBindingSource();
+                BranchSpecificData.SaveToFile();
             }
         }
-        private void AddItemsToclb_lastDigitChanges(List<string> locations)
+        private void btnAdd_RemovedLocations_Click(object sender, EventArgs e)
         {
-            clb_lastDigitChanges.Items.Clear();
-            foreach (var location in locations)
+            var form2 = new BranchSetup_Add.RemoveLocations(currentVersionLogic.GetDistinctLocations());
+            form2.ShowDialog();
+            if (form2.DialogResult == DialogResult.OK)
             {
-                clb_lastDigitChanges.Items.Add(location);
-            }
-            foreach (string PN in BranchSpecificData.lastDigitChanges)
-            {
-                for (int i = 0; i < clb_lastDigitChanges.Items.Count; i++)
+                BranchSpecificData.eliminatedLocations.Clear();
+                foreach (var item in form2.removedLocations)
                 {
-                    if (clb_lastDigitChanges.Items[i].ToString() == PN)
-                    {
-                        clb_lastDigitChanges.SetItemChecked(i, true);
-                    }
+                    BranchSpecificData.eliminatedLocations.Add(item);
                 }
+                UpdateBindingSource();
+                BranchSpecificData.SaveToFile();
             }
         }
-        private void UpdateEliminatedLocations()
-        {
-            BranchSpecificData.eliminatedLocations.Clear();
-            for (int i = 0; i < clb_locations.Items.Count; i++)
-            {
-                if (clb_locations.GetItemChecked(i))
-                {
-                    var item = clb_locations.Items[i];
-                    if (!BranchSpecificData.eliminatedLocations.Contains(item.ToString()))
-                    {
-                        BranchSpecificData.eliminatedLocations.Add(item.ToString());
-                    }
-                }
-            }
-            BranchSpecificData.eliminatedLocations.Sort();
-        }
-        private void UpdateLastDigitChanges()
-        {
-            BranchSpecificData.lastDigitChanges.Clear();
-            for (int i = 0; i < clb_lastDigitChanges.Items.Count; i++)
-            {
-                if (clb_lastDigitChanges.GetItemChecked(i))
-                {
-                    var item = clb_lastDigitChanges.Items[i];
-                    if (!BranchSpecificData.lastDigitChanges.Contains(item.ToString()))
-                    {
-                        BranchSpecificData.lastDigitChanges.Add(item.ToString());
-                    }
-                }
-            }
-            BranchSpecificData.lastDigitChanges.Sort();
-        }
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            UpdateLastDigitChanges();
-            UpdateBindingSource();
-            BranchSpecificData.SaveToFile();
-        }
-
         private void btnRun_Click(object sender, EventArgs e)
         {
             currentVersionLogic.OperationCaller();
+            var f2 = new BranchSetup_Add.LaunchedScreen(panelSize,
+                currentVersionLogic.calculatedBlanks.Count,
+                currentVersionLogic.blanks.Count, this.lb2);
+            LoadForm(f2);
         }
         public void OpenReport()
         {
             currentVersionLogic = new UpdaterLogic("");
             BranchSpecificData.ReadDataFromFile();
-            AddItemsToclb_locations(currentVersionLogic.GetDistinctLocations());
-            AddItemsToclb_lastDigitChanges(currentVersionLogic.GetDistinctProductGroups());
-            
             UpdateBindingSource();
         }
         public void UpdateBindingSource()
@@ -137,10 +91,14 @@ namespace BlankLocations
             lb_lastDigitChanges.DataSource = bs_lastDigitChanges;
             bs_lastDigitChanges.ResetBindings(false);
         }
-
         private void BlankLocationsUpdater_FormClosing(object sender, FormClosingEventArgs e)
         {
             currentVersionLogic.CleanUp();
+        }
+
+        private void panel1_Resize(object sender, EventArgs e)
+        {
+            this.panelSize = panel1.Size;
         }
     }
 }

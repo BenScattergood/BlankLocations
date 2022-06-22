@@ -12,11 +12,35 @@ namespace BlankLocations
 {
     public partial class BlankLocationsUpdaterRunOptions : Form
     {
+        public bool BranchSetup;
+        public bool Launch;
         public BlankLocationsUpdaterRunOptions()
         {
             InitializeComponent();
             btnOk.DialogResult = DialogResult.OK;
             btnCancel.DialogResult = DialogResult.Cancel;
+        }
+
+        private void BlankLocationsUpdaterRunOptions_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            if (rbBranchSetup.Checked)
+            {
+                BranchSetup = true;
+            }
+            else if (rbLaunch.Checked)
+            {
+                Launch = true;
+            }
+            else
+            {
+                BranchSetup = false;
+                Launch = false;
+            }
         }
     }
 }

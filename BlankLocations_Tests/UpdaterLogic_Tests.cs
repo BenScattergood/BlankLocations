@@ -19,7 +19,6 @@ namespace BlankLocations_Tests
         [TestMethod]
         public void wsRange_Test()
         {
-            
             string[,] temp = current.wsRange;
             Assert.AreEqual("11J17", temp[1, 2]);
             Assert.AreNotEqual("11J16", temp[1, 2]);
