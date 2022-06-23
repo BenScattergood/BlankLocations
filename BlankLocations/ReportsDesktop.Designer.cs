@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportsDesktop));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Blank Locations Updater");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Blank Locations Updater");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,11 +39,11 @@
             this.applicationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnlExplorer = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnOrganise_Explorer = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pnlTreeListView = new System.Windows.Forms.Panel();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnAdd_Explorer = new System.Windows.Forms.Button();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -123,6 +123,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 89);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.splitContainer1.Name = "splitContainer1";
@@ -131,11 +132,11 @@
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.splitContainer1.Panel1.Controls.Add(this.pnlExplorer);
-            this.splitContainer1.Panel1MinSize = 29;
+            this.splitContainer1.Panel1MinSize = 301;
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
             this.splitContainer1.Size = new System.Drawing.Size(1672, 997);
             this.splitContainer1.SplitterDistance = 301;
             this.splitContainer1.TabIndex = 3;
@@ -145,15 +146,28 @@
             this.pnlExplorer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlExplorer.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.pnlExplorer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
+            this.pnlExplorer.Controls.Add(this.label1);
             this.pnlExplorer.Controls.Add(this.btnOrganise_Explorer);
             this.pnlExplorer.Controls.Add(this.pnlTreeListView);
-            this.pnlExplorer.Controls.Add(this.label1);
             this.pnlExplorer.Controls.Add(this.btnAdd_Explorer);
             this.pnlExplorer.Location = new System.Drawing.Point(12, 0);
             this.pnlExplorer.Name = "pnlExplorer";
             this.pnlExplorer.Size = new System.Drawing.Size(283, 1000);
             this.pnlExplorer.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Navy;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(283, 27);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Explorer";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnOrganise_Explorer
             // 
@@ -204,29 +218,16 @@
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Margin = new System.Windows.Forms.Padding(0);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Blank Locations Updater";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.SelectedImageKey = "icons8-scroll-48.png";
-            treeNode1.Text = "Blank Locations Updater";
+            treeNode2.Name = "Blank Locations Updater";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.SelectedImageKey = "icons8-scroll-48.png";
+            treeNode2.Text = "Blank Locations Updater";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.treeView1.SelectedImageIndex = 0;
             this.treeView1.Size = new System.Drawing.Size(257, 919);
             this.treeView1.TabIndex = 0;
             this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Navy;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(283, 27);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Explorer";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnAdd_Explorer
             // 
@@ -258,6 +259,7 @@
             this.toolStripButton1.Size = new System.Drawing.Size(34, 49);
             this.toolStripButton1.Text = "Exit";
             this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripButton2
             // 
@@ -347,7 +349,7 @@
             // toolStrip1
             // 
             this.toolStrip1.AutoSize = false;
-            this.toolStrip1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.toolStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(212)))), ((int)(((byte)(255)))));
             this.toolStrip1.CanOverflow = false;
             this.toolStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(30, 30);
@@ -395,7 +397,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(212)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1680, 1114);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitContainer1);

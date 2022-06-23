@@ -44,7 +44,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.clb_locations);
@@ -81,7 +81,7 @@
             this.clb_locations.FormattingEnabled = true;
             this.clb_locations.Location = new System.Drawing.Point(11, 39);
             this.clb_locations.Name = "clb_locations";
-            this.clb_locations.Size = new System.Drawing.Size(405, 334);
+            this.clb_locations.Size = new System.Drawing.Size(405, 324);
             this.clb_locations.TabIndex = 0;
             // 
             // imageList1
@@ -96,7 +96,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnOk);
             this.panel2.Location = new System.Drawing.Point(12, 404);
@@ -150,7 +150,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(212)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(452, 464);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

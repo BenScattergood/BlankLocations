@@ -23,6 +23,7 @@ namespace BlankLocations
             //var size = this.Size.Height - menuStrip1.Size.Height -
             //    toolStrip1.Size.Height - label2.Size.Height;
             //splitContainer1.Size = new Size(splitContainer1.Size.Width, size);
+            Console.WriteLine();
         }
         public void LoadForm(object Form)
         {    
@@ -47,11 +48,13 @@ namespace BlankLocations
         private void Form1_Load(object sender, EventArgs e)
         {
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            this.splitContainer1.SplitterDistance = 301;
         }
         
 
         private void tsBtnClose_Click(object sender, EventArgs e)
         {
+            var temp = splitContainer1.SplitterDistance;
             if (blankLocationUpdater == null)
             {
                 return;
@@ -64,6 +67,12 @@ namespace BlankLocations
 
         private void ReportsDesktop_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (MessageBox.Show("Are you sure you wish to exit?", "Confirm Exit",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel) 
+            {
+                e.Cancel = true;
+                return;
+            } 
             if (blankLocationUpdater == null)
             {
                 return;
@@ -77,11 +86,7 @@ namespace BlankLocations
             {
                 return;
             }
-            if (blankLocationUpdater != null)
-            {
-                MessageBox.Show("Report already running");
-                return;
-            }
+            blankLocationUpdater = null;
             var form2 = new BlankLocationsUpdaterRunOptions();
             var filter = new Filter(this.Size, this.Location);
             filter.Show();
@@ -111,6 +116,11 @@ namespace BlankLocations
                 }
                 
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
     
