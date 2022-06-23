@@ -36,47 +36,46 @@ namespace BlankLocations
             G05_path = BranchSpecificData.folderPath + $@"\Stock_Listed_By_PN" + fileName + ".xlsx";
             try
             {
-                G05 = new _excel.Application();
+                try
+                {
+                    G05 = new _excel.Application();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show($"Unable To Access Excel Application \n {e.Message}");
+                    throw;
+                }
+
                 G05_books = G05.Workbooks;
-                G05_wb = G05_books.Open(G05_path);
-                G05_ws1 = G05_wb.Worksheets[1];
+                try
+                {
+                    G05_wb = G05_books.Open(G05_path);
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show($"File not found \n {e.Message}");
+                    throw;
+                }
+                try
+                {
+                    G05_ws1 = G05_wb.Worksheets[1];
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show($"There was a problem with the file \n {e.Message}");
+                    throw;
+                }
             }
-            finally
+            catch
             {
-
+                CloseG05();
+                Cleanup();
             }
-
-            //G05_path = BranchSpecificData.folderPath + $@"\Stock_Listed_By_PN" + fileName + ".xlsx";
-            //try
-            //{
-            //    G05 = new _excel.Application();
-            //}
-            //catch (Exception e)
-            //{
-            //    System.Windows.Forms.MessageBox.Show($"Unable To Access Excel Application \n {e.Message}");
-            //    throw;
-            //}
-            
-            //var workbooks = G05.Workbooks;
-            //try
-            //{
-            //    G05_wb = workbooks.Open(G05_path);
-            //}
-            //catch (Exception e)
-            //{
-            //    System.Windows.Forms.MessageBox.Show($"File not found \n {e.Message}");
-            //    throw;
-            //}
-            //try
-            //{
-            //    G05_ws1 = G05_wb.Worksheets[1];
-            //}
-            //catch (Exception e)
-            //{
-            //    System.Windows.Forms.MessageBox.Show($"There was a problem with the file \n {e.Message}");
-            //    throw;
-            //}
-            
+        }
+        private static void CloseG05()
+        {
+            G05_wb.Close();
+            G05.Quit();
         }
         public static string[,] ReadRange()
         {
@@ -103,14 +102,10 @@ namespace BlankLocations
                     returnString[r - 1, c - 1] = strTemp;
                 }
             }
-            G05_wb.Close();
-            G05.Quit();
+            CloseG05();
             Cleanup();
             return returnString;
         }
-
-        
-
         private static int LinesInFile(object[,] holder)
         {
             int count = 0;
@@ -172,9 +167,6 @@ namespace BlankLocations
         }
         public static void KillExcel()
         {
-
-
-
             //Process[] excelProcs = Process.GetProcessesByName("EXCEL");
             //foreach (Process proc in excelProcs)
             //{

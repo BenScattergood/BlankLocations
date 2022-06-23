@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace BlankLocations
 {
@@ -14,8 +16,23 @@ namespace BlankLocations
         public static string folderPath;
         private static string saveData_eliminatedLocations = "eliminatedLocations";
         private static string saveData_lastDigitChanges = "lastDigitChanges";
+        private static string GetFilePath(string fileName) => folderPath + $@"\{fileName}";
 
         public static void SaveToFile()
+        {
+            SaveDataToFile();
+            byte[] myHash = ReturnSecurityHash();
+            File.WriteAllBytes(GetFilePath("SecurityCheck.txt"), myHash);
+        }
+
+        private static byte[] ReturnSecurityHash()
+        {
+            byte[] myFileData = File.ReadAllBytes(GetFilePath("savedData.txt"));
+            byte[] myHash = MD5.Create().ComputeHash(myFileData);
+            return myHash;
+        }
+
+        private static void SaveDataToFile()
         {
             List<string> cData = new List<string>();
             cData.Add(saveData_eliminatedLocations);
@@ -36,45 +53,79 @@ namespace BlankLocations
                 Data[i] = item;
                 i++;
             }
-            File.WriteAllLines(folderPath + $@"\savedData.txt",Data);
+            File.WriteAllLines(GetFilePath("savedData.txt"), Data);
         }
 
         public static void ReadDataFromFile()
         {
-            string filePath = folderPath + $@"\savedData.txt";
             eliminatedLocations.Clear();
             lastDigitChanges.Clear();
-            if (File.Exists(filePath))
+            try
             {
-                string[] cData = File.ReadAllLines(filePath);
-                bool passedlastDigitMark = false;
-
-                foreach (var line in cData)
+                if (File.Exists(GetFilePath("savedData.txt")))
                 {
-                    if (passedlastDigitMark == true)
+                    byte[] newHash = ReturnSecurityHash();
+                    if (File.Exists(GetFilePath("SecurityCheck.txt")))
                     {
-                        lastDigitChanges.Add(line);
-                    }
-                    else if (line == saveData_lastDigitChanges)
-                    {
-                        passedlastDigitMark = true;
+                        byte[] oldHash = File.ReadAllBytes(GetFilePath("SecurityCheck.txt"));
+                        if (!HashesDoMatch(oldHash, newHash))
+                        {
+                            throw new CryptographicException();
+                        }
                     }
                     else
                     {
-                        if (line != saveData_eliminatedLocations)
-                        {
-                            eliminatedLocations.Add(line);
-                        }
+                        throw new FileNotFoundException();
                     }
-                    
+                    ExtractDataFromFile();
                 }
             }
-            
+            catch (Exception)
+            {
+                MessageBox.Show("There appears to be a problem with your branch Data," +
+                    " you will need to setup your branch via 'Branch Setup' mode again");
+                ClearSavedData();
+            }   
+        }
+        private static bool HashesDoMatch(byte[] oldHash, byte[] newHash)
+        {
+            for (int i = 0; i < oldHash.Count(); i++)
+            {
+                if (oldHash[i] != newHash[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private static void ExtractDataFromFile()
+        {
+            string[] cData = File.ReadAllLines(GetFilePath("savedData.txt"));
+            bool passedlastDigitMark = false;
+            foreach (var line in cData)
+            {
+                if (passedlastDigitMark == true)
+                {
+                    lastDigitChanges.Add(line);
+                }
+                else if (line == saveData_lastDigitChanges)
+                {
+                    passedlastDigitMark = true;
+                }
+                else
+                {
+                    if (line != saveData_eliminatedLocations)
+                    {
+                        eliminatedLocations.Add(line);
+                    }
+                }
+            }
         }
         public static void ClearSavedData()
         {
             string[] Data = new string[0];
-            File.WriteAllLines(folderPath + $@"\savedData.txt", Data);
+            File.WriteAllLines(GetFilePath("savedData.txt"), Data);
+            File.WriteAllLines(GetFilePath("SecurityCheck.txt"), Data);
         }
     }
 
