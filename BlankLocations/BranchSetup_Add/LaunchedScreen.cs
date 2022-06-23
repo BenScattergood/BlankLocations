@@ -87,7 +87,7 @@ namespace BlankLocations.BranchSetup_Add
                 "Microsoft Sans Serif",8, FontStyle.Bold);
             dataGridView1.Rows[4].DefaultCellStyle.Font = new Font(
                 "Microsoft Sans Serif", 8, FontStyle.Bold);
-            lb2.Text = "This has worked";
+            lb2.Text = $@"Report completed, locations supplied {supplied} - required {required}";
         }
     }
 }

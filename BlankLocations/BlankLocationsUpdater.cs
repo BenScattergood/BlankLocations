@@ -15,32 +15,44 @@ namespace BlankLocations
         public UpdaterLogic currentVersionLogic;
         private Size panelSize;
         private Label lb2;
+        private ReportsDesktop rd;
 
-        public BlankLocationsUpdater(Size panelSize, Label lb2)
+        public BlankLocationsUpdater(Size panelSize, Label lb2,
+            ReportsDesktop rd)
         {
             InitializeComponent();
             panel1.Size = panelSize;
             this.panelSize = panelSize;
             this.lb2 = lb2;
+            this.rd = rd;
             OpenReport();
         }
         public void LoadForm(object Form)
         {
-            for (int i = panel1.Controls.Count; i > 0; i--)
-            {
-                this.panel1.Controls.RemoveAt(0);
-            }
+            RemoveControls();
             Form f = (Form)Form;
             f.TopLevel = false;
             f.Dock = DockStyle.Fill;
-            this.panel1.Controls.Add(f);
-            this.panel1.Tag = f;
+            this.Controls.Add(f);
+            this.Tag = f;
             f.Show();
         }
+
+        public void RemoveControls()
+        {
+            for (int i = this.Controls.Count; i > 0; i--)
+            {
+                this.Controls.RemoveAt(0);
+            }
+        }
+
         private void btnAdd_LastDigitChanges_Click(object sender, EventArgs e)
         {
             var form2 = new BranchSetup_Add.LastDigitChanges(currentVersionLogic.GetDistinctProductGroups());
+            var filter = new Filter(rd.Size, rd.Location);
+            filter.Show();
             form2.ShowDialog();
+            filter.Close();
             if (form2.DialogResult == DialogResult.OK)
             {
                 BranchSpecificData.lastDigitChanges.Clear();
@@ -55,7 +67,10 @@ namespace BlankLocations
         private void btnAdd_RemovedLocations_Click(object sender, EventArgs e)
         {
             var form2 = new BranchSetup_Add.RemoveLocations(currentVersionLogic.GetDistinctLocations());
+            var filter = new Filter(rd.Size, rd.Location);
+            filter.Show();
             form2.ShowDialog();
+            filter.Close();
             if (form2.DialogResult == DialogResult.OK)
             {
                 BranchSpecificData.eliminatedLocations.Clear();

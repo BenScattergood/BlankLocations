@@ -25,17 +25,23 @@ namespace BlankLocations
             //splitContainer1.Size = new Size(splitContainer1.Size.Width, size);
         }
         public void LoadForm(object Form)
-        {
-            for (int i = splitContainer1.Panel2.Controls.Count; i > 0; i--)
-            {
-                this.splitContainer1.Panel2.Controls.RemoveAt(0);
-            }
+        {    
+            RemoveControls();
+            
             var f = (Form)Form;
             f.TopLevel = false;
             f.Dock = DockStyle.Fill;
             this.splitContainer1.Panel2.Controls.Add(f);
             this.splitContainer1.Panel2.Tag = f;
-            f.Show();   
+            f.Show();
+        }
+
+        private void RemoveControls()
+        {
+            for (int i = splitContainer1.Panel2.Controls.Count; i > 0; i--)
+            {
+                this.splitContainer1.Panel2.Controls.RemoveAt(0);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -77,25 +83,29 @@ namespace BlankLocations
                 return;
             }
             var form2 = new BlankLocationsUpdaterRunOptions();
+            var filter = new Filter(this.Size, this.Location);
+            filter.Show();
             form2.ShowDialog();
+            filter.Close();
             if (form2.DialogResult == DialogResult.OK)
             {
                 if (form2.Launch)
                 {
                     Size panelSize = splitContainer1.Panel2.Size;
-                    blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2);
+                    blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2,
+                        this);
                     blankLocationUpdater.currentVersionLogic.OperationCaller();
                     LoadForm(blankLocationUpdater);
                     var f2 = new BranchSetup_Add.LaunchedScreen(panelSize,
                         blankLocationUpdater.currentVersionLogic.calculatedBlanks.Count,
                         blankLocationUpdater.currentVersionLogic.blanks.Count,this.label2);
                     LoadForm(f2);
-                    Console.WriteLine();
                 }
                 else if (form2.BranchSetup)
                 {
                     Size panelSize = splitContainer1.Panel2.Size;
-                    blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2);
+                    blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2,
+                        this);
                     LoadForm(blankLocationUpdater);
                     // loading bar here...
                 }

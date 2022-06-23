@@ -35,6 +35,7 @@ namespace BlankLocations
             ExcelFile.WriteToExcel(WriteRange(useCalculated), useCalculated, this);
             ExcelFile.WriteToExcel(WriteRange(!useCalculated), !useCalculated, this);
             ExcelFile.export_wb.Application.Visible = true;
+            ExcelFile.Cleanup();
         }
         public void ExtractExcelDataIntoLocationsAndBlanks()
         {
@@ -294,7 +295,7 @@ namespace BlankLocations
             locations.Clear();
             blanks.Clear();
             calculatedBlanks.Clear();
-            ExcelFile.Cleanup();
+            //ExcelFile.Cleanup();
         }
     }
 }

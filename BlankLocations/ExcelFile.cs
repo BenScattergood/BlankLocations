@@ -13,55 +13,76 @@ namespace BlankLocations
     public static class ExcelFile
     {
         public static string G05_path = "";
-        public static Application G05 = new _excel.Application();
-        public static Application export = new _excel.Application();
-        public static Workbook G05_wb;
-        public static Workbook export_wb;
-        public static Worksheet G05_ws1;
-        public static Worksheet export_ws1;
-        public static Worksheet export_ws2;
+        public static _excel.Application G05 = null;
+        public static _excel.Application export = null;
+        public static _excel.Workbooks G05_books = null;
+        public static _excel.Workbooks export_books = null;
+        public static _excel.Workbook G05_wb = null;
+        public static _excel.Workbook export_wb = null;
+        public static _excel.Sheets export_sheets = null;
+        public static _excel.Worksheet G05_ws1 = null;
+        public static _excel.Worksheet export_ws1 = null;
+        public static _excel.Worksheet export_ws2 = null;
+        public static dynamic cell1 = null;
+        public static dynamic cell2 = null;
+        public static Range range = null;
+
         public static bool G05isOpen = false;
 
         public static void PopulateG05(string fileName = "_Test")
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             BranchSpecificData.folderPath = path + $@"\C#\ECP";
-            
             G05_path = BranchSpecificData.folderPath + $@"\Stock_Listed_By_PN" + fileName + ".xlsx";
             try
             {
                 G05 = new _excel.Application();
-            }
-            catch (Exception e)
-            {
-                System.Windows.Forms.MessageBox.Show($"Unable To Access Excel Application \n {e.Message}");
-                throw;
-            }
-            
-            var workbooks = G05.Workbooks;
-            try
-            {
-                G05_wb = workbooks.Open(G05_path);
-            }
-            catch (Exception e)
-            {
-                System.Windows.Forms.MessageBox.Show($"File not found \n {e.Message}");
-                throw;
-            }
-            try
-            {
+                G05_books = G05.Workbooks;
+                G05_wb = G05_books.Open(G05_path);
                 G05_ws1 = G05_wb.Worksheets[1];
             }
-            catch (Exception e)
+            finally
             {
-                System.Windows.Forms.MessageBox.Show($"There was a problem with the file \n {e.Message}");
-                throw;
+
             }
+
+            //G05_path = BranchSpecificData.folderPath + $@"\Stock_Listed_By_PN" + fileName + ".xlsx";
+            //try
+            //{
+            //    G05 = new _excel.Application();
+            //}
+            //catch (Exception e)
+            //{
+            //    System.Windows.Forms.MessageBox.Show($"Unable To Access Excel Application \n {e.Message}");
+            //    throw;
+            //}
+            
+            //var workbooks = G05.Workbooks;
+            //try
+            //{
+            //    G05_wb = workbooks.Open(G05_path);
+            //}
+            //catch (Exception e)
+            //{
+            //    System.Windows.Forms.MessageBox.Show($"File not found \n {e.Message}");
+            //    throw;
+            //}
+            //try
+            //{
+            //    G05_ws1 = G05_wb.Worksheets[1];
+            //}
+            //catch (Exception e)
+            //{
+            //    System.Windows.Forms.MessageBox.Show($"There was a problem with the file \n {e.Message}");
+            //    throw;
+            //}
             
         }
         public static string[,] ReadRange()
         {
-            Range range = (Range)G05_ws1.Range[G05_ws1.Cells[1, 1], G05_ws1.Cells[300000, 4]];
+            cell1 = G05_ws1.Cells[1, 1];
+            cell2 = G05_ws1.Cells[300000, 4];
+            range = (Range)G05_ws1.Range[cell1, cell2];
             object[,] holder = range.Value2;
             int linesInFile = LinesInFile(holder);
             string[,] returnString = new string[linesInFile, 4];
@@ -82,8 +103,14 @@ namespace BlankLocations
                     returnString[r - 1, c - 1] = strTemp;
                 }
             }
+            G05_wb.Close();
+            G05.Quit();
+            Cleanup();
             return returnString;
         }
+
+        
+
         private static int LinesInFile(object[,] holder)
         {
             int count = 0;
@@ -103,44 +130,61 @@ namespace BlankLocations
         public static void CreateExportFile()
         {
             export = new _excel.Application();
-            export_wb = export.Workbooks.Add();
-            export_wb.Worksheets.Add(After: export_wb.Sheets[export_wb.Sheets.Count]);
+            export_books = export.Workbooks;
+            export_wb = export_books.Add();
+            export_sheets = export_wb.Sheets;
+            int count = export_wb.Sheets.Count;
+            var temp = export_wb.Sheets[count];
+            export_sheets.Add(After: temp);
             export_ws1 = export_wb.Worksheets[1];
             export_ws2 = export_wb.Worksheets[2];
         }
-        
+
         public static void WriteToExcel(string[,] writeString, bool calculated,
             UpdaterLogic currentVersion)
         {
-            Range range = null;
             if (calculated)
             {
-                range = (Range)export_ws1.Range[export_ws1.Cells[1, 1],
-                    export_ws1.Cells[currentVersion.calculatedBlanks.Count + 1, 2]];
+                cell1 = export_ws1.Cells[1, 1];
+                int count = currentVersion.calculatedBlanks.Count + 1;
+                cell2 = export_ws1.Cells[count,2];
+                range = (Range)export_ws1.Range[cell1,cell2];
             }
             else
             {
-                range = (Range)export_ws2.Range[export_ws2.Cells[1, 1],
-                    export_ws2.Cells[currentVersion.blanks.Count + 1, 4]];
+                cell1 = export_ws2.Cells[1, 1];
+                int count = currentVersion.blanks.Count + 1;
+                cell2 = export_ws2.Cells[count, 4];
+                range = (Range)export_ws2.Range[cell1, cell2];
             }
 
             range.Value2 = writeString;
         }
         public static void Cleanup()
         {
-            //Marshal.ReleaseComObject(G05_wb);
-            //Marshal.ReleaseComObject(G05.Workbooks);
-            //Marshal.ReleaseComObject(G05);
-            Process[] excelProcs = Process.GetProcessesByName("EXCEL");
-            foreach (Process proc in excelProcs)
-            {
-                if (String.IsNullOrEmpty(proc.MainWindowTitle))
-                {
-                    proc.Kill();
-                    Console.WriteLine();
-                }
+            if (cell1 != null) Marshal.ReleaseComObject(cell1);
+            if (cell2 != null) Marshal.ReleaseComObject(cell2);
+            if (range != null) Marshal.ReleaseComObject(range);
+            if (G05_ws1 != null) Marshal.ReleaseComObject(G05_ws1);
+            if (G05_wb != null) Marshal.ReleaseComObject(G05_wb);
+            if (G05_books != null) Marshal.ReleaseComObject(G05_books);
+            if (G05 != null) Marshal.ReleaseComObject(G05);
+        }
+        public static void KillExcel()
+        {
+
+
+
+            //Process[] excelProcs = Process.GetProcessesByName("EXCEL");
+            //foreach (Process proc in excelProcs)
+            //{
+            //    if (String.IsNullOrEmpty(proc.MainWindowTitle))
+            //    {
+            //        proc.Kill();
+            //        Console.WriteLine();
+            //    }
                 
-            }
+            //}
         }
     }
 }
