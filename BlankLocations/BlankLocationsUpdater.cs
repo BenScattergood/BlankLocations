@@ -16,11 +16,14 @@ namespace BlankLocations
         private Size panelSize;
         private Label lb2;
         private ReportsDesktop rd;
+        private BranchSetup_Add.ProgressBarForm progressBarForm;
 
         public BlankLocationsUpdater(Size panelSize, Label lb2,
-            ReportsDesktop rd)
+            ReportsDesktop rd, BranchSetup_Add.ProgressBarForm pgf)
         {
             InitializeComponent();
+            this.progressBarForm = pgf;
+            progressBarForm.IncrementProgressBar(10);
             panel1.Size = panelSize;
             this.panelSize = panelSize;
             this.lb2 = lb2;
@@ -84,16 +87,24 @@ namespace BlankLocations
         }
         private void btnRun_Click(object sender, EventArgs e)
         {
+            var filter = new Filter(rd.Size, rd.Location);
+            progressBarForm = new BranchSetup_Add.ProgressBarForm();
+            filter.Show();
+            progressBarForm.Show();
+            progressBarForm.IncrementProgressBar(20);
             currentVersionLogic.OperationCaller();
             var f2 = new BranchSetup_Add.LaunchedScreen(panelSize,
                 currentVersionLogic.calculatedBlanks.Count,
                 currentVersionLogic.blanks.Count, this.lb2);
+            filter.Close();
+            progressBarForm.Close();
             LoadForm(f2);
         }
         public void OpenReport()
         {
-            currentVersionLogic = new UpdaterLogic("");
+            currentVersionLogic = new UpdaterLogic(progressBarForm,"");
             BranchSpecificData.ReadDataFromFile();
+            progressBarForm.IncrementProgressBar(10);
             UpdateBindingSource();
         }
         public void UpdateBindingSource()

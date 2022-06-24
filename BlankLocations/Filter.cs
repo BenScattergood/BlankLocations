@@ -15,11 +15,22 @@ namespace BlankLocations
         public Filter(Size size, Point location)
         {
             InitializeComponent();
-            this.Location = location;
-            this.Size = size;
-            this.BackColor = Color.Black;
-            //this.ForeColor = Color.Black;
-            this.Opacity = 0.25;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Size = new Size(size.Width - 15, size.Height - 8);
+            this.Location = new Point(location.X + 8, location.Y);
+
+
+            
+
+            //this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            
+
+
+
+
+
+            this.BackColor = Color.WhiteSmoke;
+            this.Opacity = 0.30;
         }
     }
 }

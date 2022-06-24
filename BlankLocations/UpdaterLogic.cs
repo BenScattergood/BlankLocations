@@ -15,22 +15,28 @@ namespace BlankLocations
         public List<Tuple<string, string, string, string>> calculatedBlanks =
             new List<Tuple<string, string, string, string>>();
         public string[,] wsRange;
-        public UpdaterLogic(string fileName = "_Test")
+        private BranchSetup_Add.ProgressBarForm progressBarForm;
+        public UpdaterLogic(BranchSetup_Add.ProgressBarForm pgf, string fileName = "_Test")
         {
+            this.progressBarForm = pgf;
             ExcelFile.PopulateG05(fileName);
+            progressBarForm.IncrementProgressBar(40);
             wsRange = ExcelFile.ReadRange();
             if (!G05DataIsValid())
             {
                 //needs work
                 throw new InvalidDataException("Your G05 file appears to be invalid");
             }
+            progressBarForm.IncrementProgressBar(10);
             ExtractExcelDataIntoLocationsAndBlanks();
         }
         public void OperationCaller()
         {
+            progressBarForm.SetProgressBar(80);
             CalculateBlankValues();
             Populate_calculatedBlanks_Shrink_Blanks();
             ExcelFile.CreateExportFile();
+            progressBarForm.IncrementProgressBar(10);
             bool useCalculated = true;
             ExcelFile.WriteToExcel(WriteRange(useCalculated), useCalculated, this);
             ExcelFile.WriteToExcel(WriteRange(!useCalculated), !useCalculated, this);

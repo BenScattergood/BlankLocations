@@ -70,6 +70,12 @@
     <Compile Include="BranchSetup_Add\LaunchedScreen.Designer.cs">
       <DependentUpon>LaunchedScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="BranchSetup_Add\ProgressBarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BranchSetup_Add\ProgressBarForm.Designer.cs">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BranchSetup_Add\RemoveLocations.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BranchSetup_Add\LaunchedScreen.resx">
       <DependentUpon>LaunchedScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BranchSetup_Add\ProgressBarForm.resx">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BranchSetup_Add\RemoveLocations.resx">
       <DependentUpon>RemoveLocations.cs</DependentUpon>

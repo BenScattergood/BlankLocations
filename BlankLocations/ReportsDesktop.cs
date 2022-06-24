@@ -23,7 +23,6 @@ namespace BlankLocations
             //var size = this.Size.Height - menuStrip1.Size.Height -
             //    toolStrip1.Size.Height - label2.Size.Height;
             //splitContainer1.Size = new Size(splitContainer1.Size.Width, size);
-            Console.WriteLine();
         }
         public void LoadForm(object Form)
         {    
@@ -91,30 +90,39 @@ namespace BlankLocations
             var filter = new Filter(this.Size, this.Location);
             filter.Show();
             form2.ShowDialog();
-            filter.Close();
+            
             if (form2.DialogResult == DialogResult.OK)
             {
+                BranchSetup_Add.ProgressBarForm progressBarForm = new BranchSetup_Add.ProgressBarForm();
+                progressBarForm.Show();
                 if (form2.Launch)
                 {
                     Size panelSize = splitContainer1.Panel2.Size;
                     blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2,
-                        this);
+                        this, progressBarForm);
                     blankLocationUpdater.currentVersionLogic.OperationCaller();
                     LoadForm(blankLocationUpdater);
+                    progressBarForm.SetProgressBar(100);
                     var f2 = new BranchSetup_Add.LaunchedScreen(panelSize,
                         blankLocationUpdater.currentVersionLogic.calculatedBlanks.Count,
                         blankLocationUpdater.currentVersionLogic.blanks.Count,this.label2);
+                    progressBarForm.Close();
+                    filter.Close();
                     LoadForm(f2);
                 }
                 else if (form2.BranchSetup)
                 {
                     Size panelSize = splitContainer1.Panel2.Size;
                     blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2,
-                        this);
+                        this, progressBarForm);
+                    progressBarForm.Close();
+                    filter.Close();
                     LoadForm(blankLocationUpdater);
-                    // loading bar here...
                 }
-                
+            }
+            else
+            {
+                filter.Close();
             }
         }
 

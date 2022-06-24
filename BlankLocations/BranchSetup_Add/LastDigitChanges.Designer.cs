@@ -63,7 +63,7 @@
             // 
             // label2
             // 
-            this.label2.BackColor = System.Drawing.Color.Navy;
+            this.label2.BackColor = System.Drawing.Color.MidnightBlue;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
