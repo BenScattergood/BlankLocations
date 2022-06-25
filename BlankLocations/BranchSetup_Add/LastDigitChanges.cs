@@ -17,6 +17,7 @@ namespace BlankLocations.BranchSetup_Add
         {
             InitializeComponent();
             AddItemsToclb_lastDigitChanges(productGroups);
+            btnOk.Focus();
         }
         private void AddItemsToclb_lastDigitChanges(List<string> productGroups)
         {

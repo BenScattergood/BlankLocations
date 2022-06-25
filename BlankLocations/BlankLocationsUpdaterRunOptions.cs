@@ -19,11 +19,13 @@ namespace BlankLocations
             InitializeComponent();
             btnOk.DialogResult = DialogResult.OK;
             btnCancel.DialogResult = DialogResult.Cancel;
-        }
-
-        private void BlankLocationsUpdaterRunOptions_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
+            textBox1.Text = "If this is the first time running the report," +
+                " or you would like to make changes to the existing setup, " +
+                "then run the report in 'Branch Setup' mode. Otherwise, " +
+                "download the G05 report and then open " +
+                "the report in 'Launch' mode";
+            rbLaunch.Checked = true;
+            btnOk.Focus();
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -41,6 +43,11 @@ namespace BlankLocations
                 BranchSetup = false;
                 Launch = false;
             }
+        }
+
+        private void BlankLocationsUpdaterRunOptions_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Console.WriteLine();
         }
     }
 }

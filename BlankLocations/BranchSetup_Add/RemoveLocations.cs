@@ -17,6 +17,7 @@ namespace BlankLocations.BranchSetup_Add
         {
             InitializeComponent();
             AddItemsToclb_locations(locations);
+            btnOk.Focus();
         }
         private void AddItemsToclb_locations(List<string> locations)
         {

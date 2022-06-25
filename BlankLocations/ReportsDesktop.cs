@@ -17,12 +17,13 @@ namespace BlankLocations
         {
             InitializeComponent();
             toolStrip1.Renderer = new MySR();
+            this.WindowState = FormWindowState.Maximized;
             Size panelSize = splitContainer1.Panel2.Size;
             LoadForm(new NoReportSelected(panelSize));
-            this.WindowState = FormWindowState.Maximized;
             //var size = this.Size.Height - menuStrip1.Size.Height -
             //    toolStrip1.Size.Height - label2.Size.Height;
             //splitContainer1.Size = new Size(splitContainer1.Size.Width, size);
+            
         }
         public void LoadForm(object Form)
         {    
@@ -47,7 +48,7 @@ namespace BlankLocations
         private void Form1_Load(object sender, EventArgs e)
         {
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
-            this.splitContainer1.SplitterDistance = 301;
+            this.splitContainer1.SplitterDistance = 261;
         }
         
 
@@ -58,6 +59,7 @@ namespace BlankLocations
             {
                 return;
             }
+            blankLocationUpdater.Cleanup();
             blankLocationUpdater.Close();
             Size panelSize = splitContainer1.Panel2.Size;
             LoadForm(new NoReportSelected(panelSize));
@@ -94,12 +96,13 @@ namespace BlankLocations
             if (form2.DialogResult == DialogResult.OK)
             {
                 BranchSetup_Add.ProgressBarForm progressBarForm = new BranchSetup_Add.ProgressBarForm();
-                progressBarForm.Show();
                 if (form2.Launch)
                 {
+                    progressBarForm.Show();
                     Size panelSize = splitContainer1.Panel2.Size;
                     blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2,
                         this, progressBarForm);
+                    blankLocationUpdater.OpenReport();
                     blankLocationUpdater.currentVersionLogic.OperationCaller();
                     LoadForm(blankLocationUpdater);
                     progressBarForm.SetProgressBar(100);
@@ -115,7 +118,6 @@ namespace BlankLocations
                     Size panelSize = splitContainer1.Panel2.Size;
                     blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2,
                         this, progressBarForm);
-                    progressBarForm.Close();
                     filter.Close();
                     LoadForm(blankLocationUpdater);
                 }
@@ -128,7 +130,7 @@ namespace BlankLocations
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            
+            this.Close();
         }
     }
     

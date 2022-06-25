@@ -83,6 +83,7 @@
             this.clb_lastDigitChanges.Name = "clb_lastDigitChanges";
             this.clb_lastDigitChanges.Size = new System.Drawing.Size(405, 324);
             this.clb_lastDigitChanges.TabIndex = 0;
+            this.clb_lastDigitChanges.TabStop = false;
             // 
             // imageList1
             // 
@@ -148,6 +149,7 @@
             // 
             // LastDigitChanges
             // 
+            this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(212)))), ((int)(((byte)(255)))));

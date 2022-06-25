@@ -91,6 +91,7 @@
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(402, 128);
             this.textBox1.TabIndex = 3;
+            this.textBox1.TabStop = false;
             this.textBox1.Text = "If this is the first time running the report, or you would like to make changes t" +
     "o the existing setup, then run the report in \'Branch Setup\' mode.   Otherwise, o" +
     "pen the report in \'Launch\' mode";
@@ -112,7 +113,7 @@
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(435, 27);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 7;
             this.label2.Text = "Details";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -142,7 +143,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(137, 33);
-            this.btnCancel.TabIndex = 5;
+            this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "    Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -173,7 +174,7 @@
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(137, 33);
-            this.btnOk.TabIndex = 4;
+            this.btnOk.TabIndex = 0;
             this.btnOk.Text = "      OK";
             this.btnOk.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOk.UseVisualStyleBackColor = false;
@@ -181,6 +182,7 @@
             // 
             // BlankLocationsUpdaterRunOptions
             // 
+            this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(212)))), ((int)(((byte)(255)))));
@@ -191,7 +193,7 @@
             this.Name = "BlankLocationsUpdaterRunOptions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Select Mode";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BlankLocationsUpdaterRunOptions_FormClosing);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BlankLocationsUpdaterRunOptions_KeyPress);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

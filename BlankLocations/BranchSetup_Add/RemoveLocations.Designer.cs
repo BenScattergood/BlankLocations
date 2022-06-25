@@ -83,6 +83,7 @@
             this.clb_locations.Name = "clb_locations";
             this.clb_locations.Size = new System.Drawing.Size(405, 324);
             this.clb_locations.TabIndex = 0;
+            this.clb_locations.TabStop = false;
             // 
             // imageList1
             // 
@@ -148,6 +149,7 @@
             // 
             // RemoveLocations
             // 
+            this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(212)))), ((int)(((byte)(255)))));
