@@ -32,7 +32,7 @@ namespace BlankLocations
             this.lb2 = lb2;
             this.rd = rd;
             //I need the name of this file
-            tbBranchSetup.Text = "This report uses a G05 report (name: ggapfldn)," +
+            tbBranchSetup.Text = "This report uses a G05 report (Id: BR_UREPG05P.rep)," +
                 " you may need to add this to your reports desktop. Export the " +
                 "report without filling in the parameters. Save the report to your" +
                 " desktop inside a folder named exactly 'BlankLocations'." +
@@ -100,6 +100,7 @@ namespace BlankLocations
             var filter = new Filter(rd.Size, rd.Location);
             progressBarForm = new BranchSetup_Add.ProgressBarForm();
             filter.Show();
+            progressBarForm.SetProgressBar(0);
             progressBarForm.Show();
             progressBarForm.IncrementProgressBar(20);
             try
@@ -108,7 +109,8 @@ namespace BlankLocations
             }
             catch (Exception)
             {
-                progressBarForm.Close();
+                progressBarForm.Hide();
+                progressBarForm.SetProgressBar(0);
                 filter.Close();
                 return;
             }
@@ -186,6 +188,7 @@ namespace BlankLocations
                 reportOpened = false;
                 filter.Close();
                 progressBarForm.Hide();
+                progressBarForm.SetProgressBar(0);
                 return;
             }
             
@@ -216,8 +219,8 @@ namespace BlankLocations
 
             tbLastDigitChanges.Text = "Click the add button below to add and remove product codes. " +
                 " Select all product codes that do run in part number order, however, they are seperated" +
-                " by their last digit. For example, parts located in brand order e.g. bays of Pagid discs " +
-                "followed by Eicher, followed by Brembo. For these items," +
+                " by their last digit. For example, parts located in brand order e.g. bays of Valeo wiper blades " +
+                "followed by Bosch, followed by Starline. For these items," +
                 " the report will only look for the preceding and following part numbers that are a" +
                 " member of the same brand (have the same last digit)." + Environment.NewLine;
 

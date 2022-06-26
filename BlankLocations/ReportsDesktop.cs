@@ -99,6 +99,7 @@ namespace BlankLocations
                 BranchSetup_Add.ProgressBarForm progressBarForm = new BranchSetup_Add.ProgressBarForm();
                 if (form2.Launch)
                 {
+                    filter.Close();
                     progressBarForm.Show();
                     Size panelSize = splitContainer1.Panel2.Size;
                     blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2,

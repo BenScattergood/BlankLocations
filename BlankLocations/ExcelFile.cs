@@ -164,13 +164,24 @@ namespace BlankLocations
         }
         public static void Cleanup()
         {
+        //public static _excel.Application export = null;
+        //public static _excel.Workbooks export_books = null;
+        //public static _excel.Workbook export_wb = null;
+        //public static _excel.Sheets export_sheets = null;
+        //public static _excel.Worksheet export_ws1 = null;
+        //public static _excel.Worksheet export_ws2 = null;
+
             if (cell1 != null) Marshal.ReleaseComObject(cell1);
             if (cell2 != null) Marshal.ReleaseComObject(cell2);
             if (range != null) Marshal.ReleaseComObject(range);
             if (G05_ws1 != null) Marshal.ReleaseComObject(G05_ws1);
             if (G05_wb != null) Marshal.ReleaseComObject(G05_wb);
             if (G05_books != null) Marshal.ReleaseComObject(G05_books);
-            if (G05 != null) Marshal.ReleaseComObject(G05);
+            if (export_ws2 != null) Marshal.ReleaseComObject(export_ws2);
+            if (export_ws1 != null) Marshal.ReleaseComObject(export_ws1);
+            if (export_wb != null) Marshal.ReleaseComObject(export_wb);
+            if (export_books != null) Marshal.ReleaseComObject(export_books);
+            if (export != null) Marshal.ReleaseComObject(export);
         }
         public static void KillExcel()
         {

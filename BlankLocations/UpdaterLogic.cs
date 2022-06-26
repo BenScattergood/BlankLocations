@@ -319,7 +319,7 @@ namespace BlankLocations
             locations.Clear();
             blanks.Clear();
             calculatedBlanks.Clear();
-            //ExcelFile.Cleanup();
+            ExcelFile.Cleanup();
         }
     }
 }
