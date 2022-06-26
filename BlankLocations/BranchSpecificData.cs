@@ -16,7 +16,7 @@ namespace BlankLocations
         public static string folderPath;
         private static string saveData_eliminatedLocations = "eliminatedLocations";
         private static string saveData_lastDigitChanges = "lastDigitChanges";
-        private static string GetFilePath(string fileName) => folderPath + $@"\{fileName}";
+        private static string GetFilePath(string fileName) => folderPath + $@"\SavedData\{fileName}";
 
         public static void SaveToFile()
         {

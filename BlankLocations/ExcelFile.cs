@@ -35,11 +35,11 @@ namespace BlankLocations
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             if (test)
             {
-                BranchSpecificData.folderPath = path + $@"\C#\ECP\Tests";
+                BranchSpecificData.folderPath = path + $@"\Blank Locations\Tests";
             }
             else
             {
-                BranchSpecificData.folderPath = path + $@"\C#\ECP";
+                BranchSpecificData.folderPath = path + $@"\Blank Locations";
             }
             G05_path = BranchSpecificData.folderPath + $@"\Stock_Listed_By_PN.xlsx";
             try

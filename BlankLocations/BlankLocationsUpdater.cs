@@ -35,7 +35,7 @@ namespace BlankLocations
             tbBranchSetup.Text = "This report uses a G05 report (Id: BR_UREPG05P.rep)," +
                 " you may need to add this to your reports desktop. Export the " +
                 "report without filling in the parameters. Save the report to your" +
-                " desktop inside a folder named exactly 'BlankLocations'." +
+                " desktop inside a folder named exactly 'Blank Locations'." +
                 Environment.NewLine + "Click the 'populate' button below";
             panel3.Hide();
             btnPopulate.Focus();
@@ -129,7 +129,7 @@ namespace BlankLocations
                 currentVersionLogic = new UpdaterLogic(progressBarForm);
                 BranchSpecificData.ReadDataFromFile();
             }
-            catch (InvalidDataException e)
+            catch (InvalidDataException)
             {
                 MessageBox.Show("Your G05 spreadsheet data appears to be invalid", "Error", MessageBoxButtons.OK);
                 currentVersionLogic = null;
@@ -138,14 +138,14 @@ namespace BlankLocations
             catch (FileNotFoundException)
             {
                 MessageBox.Show("There appears to be a problem with your saved Data," +
-                        " you will need to setup your branch via 'Branch Setup' mode again");
+                        " you will need to setup your branch via 'Branch Setup' mode again", "Error", MessageBoxButtons.OK);
                 currentVersionLogic = null;
                 throw new FileNotFoundException();
             }
             catch (CryptographicException)
             {
                 MessageBox.Show("There appears to be a problem with your saved Data," +
-                        " you will need to setup your branch via 'Branch Setup' mode again");
+                        " you will need to setup your branch via 'Branch Setup' mode again", "Error", MessageBoxButtons.OK);
                 currentVersionLogic = null;
                 throw new CryptographicException();
             }
