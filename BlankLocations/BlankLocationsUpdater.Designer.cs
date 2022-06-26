@@ -358,11 +358,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbBranchSetup.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tbBranchSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbBranchSetup.Location = new System.Drawing.Point(11, 41);
+            this.tbBranchSetup.Location = new System.Drawing.Point(8, 34);
             this.tbBranchSetup.Multiline = true;
             this.tbBranchSetup.Name = "tbBranchSetup";
             this.tbBranchSetup.ReadOnly = true;
-            this.tbBranchSetup.Size = new System.Drawing.Size(1235, 90);
+            this.tbBranchSetup.Size = new System.Drawing.Size(1245, 90);
             this.tbBranchSetup.TabIndex = 3;
             this.tbBranchSetup.TabStop = false;
             this.tbBranchSetup.Text = "If this is the first time running the report, or you would like to make changes t" +
