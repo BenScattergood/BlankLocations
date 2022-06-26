@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
 
 namespace BlankLocations
 {
@@ -16,19 +17,28 @@ namespace BlankLocations
             new List<Tuple<string, string, string, string>>();
         public string[,] wsRange;
         private BranchSetup_Add.ProgressBarForm progressBarForm;
-        public UpdaterLogic(BranchSetup_Add.ProgressBarForm pgf, string fileName = "_Test")
+        public UpdaterLogic(BranchSetup_Add.ProgressBarForm pbf, bool test = false)
         {
-            this.progressBarForm = pgf;
-            ExcelFile.PopulateG05(fileName);
-            progressBarForm.IncrementProgressBar(40);
-            wsRange = ExcelFile.ReadRange();
-            if (!G05DataIsValid())
+            this.progressBarForm = pbf;
+            try
             {
-                //needs work
-                throw new InvalidDataException("Your G05 file appears to be invalid");
+                ExcelFile.PopulateG05(test);
+                progressBarForm.IncrementProgressBar(40);
+                wsRange = ExcelFile.ReadRange();
+                if (!G05DataIsValid())
+                {
+                    throw new InvalidDataException();
+                    //close stuff
+                }
+                progressBarForm.IncrementProgressBar(10);
+                ExtractExcelDataIntoLocationsAndBlanks();
             }
-            progressBarForm.IncrementProgressBar(10);
-            ExtractExcelDataIntoLocationsAndBlanks();
+            catch (Exception)
+            {
+                MessageBox.Show("There appears to be a problem with your excel spreadsheet", "error", MessageBoxButtons.OK);
+                throw;
+            }
+            
         }
         public void OperationCaller()
         {
@@ -71,28 +81,23 @@ namespace BlankLocations
                 locations.Add(blank.Item1, blank.Item3);
                 string productGroup = blank.Item1.Substring(0, 3);
                 KeyValuePair<string, string> before, after;
-                ReturnAdjacentPairs(blank, productGroup, out before, out after);
-                try
+                if (!ReturnAdjacentPairs(blank, productGroup, out before, out after))
                 {
-                    if (areValidAdjacentPairs(blank, productGroup, before, after, out string location))
-                    {
-                        if (!BranchSpecificData.eliminatedLocations.Contains(location))
-                        {
-                            var currentItem = blanks.ElementAt(i);
-                            var replacement = Tuple.Create(currentItem.Item1, currentItem.Item2,
-                                location, currentItem.Item4);
-                            blanks.RemoveAt(i);
-                            blanks.Insert(i, replacement);
-                        }
-                    }
+                    continue;
                 }
-                catch (Exception)
+                if (areValidAdjacentPairs(blank, productGroup, before, after, out string location))
                 {
-
+                    if (!BranchSpecificData.eliminatedLocations.Contains(location))
+                    {
+                        var currentItem = blanks.ElementAt(i);
+                        var replacement = Tuple.Create(currentItem.Item1, currentItem.Item2,
+                            location, currentItem.Item4);
+                        blanks.RemoveAt(i);
+                        blanks.Insert(i, replacement);
+                    }
                 }
                 locations.Remove(blanks[i].Item1);
             }
-
         }
 
         private bool areValidAdjacentPairs(Tuple<string, string, string, string> blank, 
@@ -121,7 +126,7 @@ namespace BlankLocations
             }
         }
 
-        private void ReturnAdjacentPairs(Tuple<string, string, string, string> blank, 
+        private bool ReturnAdjacentPairs(Tuple<string, string, string, string> blank, 
             string productGroup, out KeyValuePair<string, string> before, 
             out KeyValuePair<string, string> after)
         {
@@ -133,6 +138,12 @@ namespace BlankLocations
             do
             {
                 increment--;
+                if (currentPosition + increment < 0)
+                {
+                    before = new KeyValuePair<string, string>("555", "555");
+                    after = new KeyValuePair<string, string>("444", "444");
+                    return false;
+                }
                 if (isCorrectValue(currentPosition, increment,
                     requiresSameLastDigit, lastDigit, out before))
                 {
@@ -140,16 +151,23 @@ namespace BlankLocations
                 }
             } while (increment > -50);
 
+            long locationsCount = locations.Count;
             increment = 0;
             do
             {
                 increment++;
+                if (increment + currentPosition >= locationsCount)
+                {
+                    after = new KeyValuePair<string, string>("444", "444");
+                    return false;
+                }
                 if (isCorrectValue(currentPosition, increment,
                     requiresSameLastDigit, lastDigit, out after))
                 {
                     break;
                 }
             } while (increment < 50);
+            return true;
         }
 
         private bool isCorrectValue(int currentPosition, int increment, 

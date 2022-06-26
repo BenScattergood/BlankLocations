@@ -156,6 +156,7 @@
             this.ClientSize = new System.Drawing.Size(447, 464);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LastDigitChanges";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "LastDigitChanges";

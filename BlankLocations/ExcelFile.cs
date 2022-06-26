@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -29,81 +30,87 @@ namespace BlankLocations
 
         public static bool G05isOpen = false;
 
-        public static void PopulateG05(string fileName = "_Test")
+        public static void PopulateG05(bool test = false)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            BranchSpecificData.folderPath = path + $@"\C#\ECP";
-            G05_path = BranchSpecificData.folderPath + $@"\Stock_Listed_By_PN" + fileName + ".xlsx";
+            if (test)
+            {
+                BranchSpecificData.folderPath = path + $@"\C#\ECP\Tests";
+            }
+            else
+            {
+                BranchSpecificData.folderPath = path + $@"\C#\ECP";
+            }
+            G05_path = BranchSpecificData.folderPath + $@"\Stock_Listed_By_PN.xlsx";
             try
             {
-                try
-                {
-                    G05 = new _excel.Application();
-                }
-                catch (Exception e)
-                {
-                    System.Windows.Forms.MessageBox.Show($"Unable To Access Excel Application \n {e.Message}");
-                    throw;
-                }
-
+                G05 = new _excel.Application();
                 G05_books = G05.Workbooks;
-                try
+                if (File.Exists(G05_path))
                 {
                     G05_wb = G05_books.Open(G05_path);
                 }
-                catch (Exception e)
+                else
                 {
-                    System.Windows.Forms.MessageBox.Show($"File not found \n {e.Message}");
-                    throw;
+                    throw new FileNotFoundException();
                 }
-                try
-                {
-                    G05_ws1 = G05_wb.Worksheets[1];
-                }
-                catch (Exception e)
-                {
-                    System.Windows.Forms.MessageBox.Show($"There was a problem with the file \n {e.Message}");
-                    throw;
-                }
+                G05_ws1 = G05_wb.Worksheets[1];
             }
-            catch
+            catch (Exception e)
             {
+                System.Windows.Forms.MessageBox.Show($"There was a problem with the file \n {e.Message}");
                 CloseG05();
                 Cleanup();
+                throw;
             }
         }
         private static void CloseG05()
         {
-            G05_wb.Close();
+            if (G05_wb != null)
+            {
+                G05_wb.Close();
+            }
+            
             G05.Quit();
         }
         public static string[,] ReadRange()
         {
-            cell1 = G05_ws1.Cells[1, 1];
-            cell2 = G05_ws1.Cells[300000, 4];
-            range = (Range)G05_ws1.Range[cell1, cell2];
-            object[,] holder = range.Value2;
-            int linesInFile = LinesInFile(holder);
-            string[,] returnString = new string[linesInFile, 4];
-            string strTemp = "";
-            for (int r = 1; r <= linesInFile; r++)
+            string[,] returnString = null;
+            try
             {
-                for (int c = 1; c <= 4; c++)
+                cell1 = G05_ws1.Cells[1, 1];
+                cell2 = G05_ws1.Cells[300000, 4];
+                range = (Range)G05_ws1.Range[cell1, cell2];
+                object[,] holder = range.Value2;
+                int linesInFile = LinesInFile(holder);
+                returnString = new string[linesInFile, 4];
+                string strTemp = "";
+                for (int r = 1; r <= linesInFile; r++)
                 {
-                    var temp = holder[r, c];
-                    if (temp == null)
+                    for (int c = 1; c <= 4; c++)
                     {
-                        strTemp = "";
+                        var temp = holder[r, c];
+                        if (temp == null)
+                        {
+                            strTemp = "";
+                        }
+                        else
+                        {
+                            strTemp = temp.ToString();
+                        }
+                        returnString[r - 1, c - 1] = strTemp;
                     }
-                    else
-                    {
-                        strTemp = temp.ToString();
-                    }
-                    returnString[r - 1, c - 1] = strTemp;
                 }
             }
-            CloseG05();
-            Cleanup();
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                CloseG05();
+                Cleanup();
+            }
             return returnString;
         }
         private static int LinesInFile(object[,] holder)

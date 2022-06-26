@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -100,7 +102,17 @@ namespace BlankLocations
             filter.Show();
             progressBarForm.Show();
             progressBarForm.IncrementProgressBar(20);
-            currentVersionLogic.OperationCaller();
+            try
+            {
+                currentVersionLogic.OperationCaller();
+            }
+            catch (Exception)
+            {
+                progressBarForm.Close();
+                filter.Close();
+                return;
+            }
+            
             var f2 = new BranchSetup_Add.LaunchedScreen(panelSize,
                 currentVersionLogic.calculatedBlanks.Count,
                 currentVersionLogic.blanks.Count, this.lb2);
@@ -110,8 +122,32 @@ namespace BlankLocations
         }
         public void OpenReport()
         {
-            currentVersionLogic = new UpdaterLogic(progressBarForm,"");
-            BranchSpecificData.ReadDataFromFile();
+            try
+            {
+                currentVersionLogic = new UpdaterLogic(progressBarForm);
+                BranchSpecificData.ReadDataFromFile();
+            }
+            catch (InvalidDataException e)
+            {
+                MessageBox.Show("Your G05 spreadsheet data appears to be invalid", "Error", MessageBoxButtons.OK);
+                currentVersionLogic = null;
+                throw new InvalidDataException();
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("There appears to be a problem with your saved Data," +
+                        " you will need to setup your branch via 'Branch Setup' mode again");
+                currentVersionLogic = null;
+                throw new FileNotFoundException();
+            }
+            catch (CryptographicException)
+            {
+                MessageBox.Show("There appears to be a problem with your saved Data," +
+                        " you will need to setup your branch via 'Branch Setup' mode again");
+                currentVersionLogic = null;
+                throw new CryptographicException();
+            }
+            
             progressBarForm.IncrementProgressBar(10);
             UpdateBindingSource();
         }
@@ -141,7 +177,18 @@ namespace BlankLocations
             Filter filter = new Filter(rd.Size, rd.Location);
             filter.Show();
             progressBarForm.Show();
-            OpenReport();
+            try
+            {
+                OpenReport();
+            }
+            catch (Exception)
+            {
+                reportOpened = false;
+                filter.Close();
+                progressBarForm.Hide();
+                return;
+            }
+            
             progressBarForm.Close();
             filter.Close();
             panel3.Show();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,13 +103,24 @@ namespace BlankLocations
                     Size panelSize = splitContainer1.Panel2.Size;
                     blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2,
                         this, progressBarForm);
-                    blankLocationUpdater.OpenReport();
-                    blankLocationUpdater.currentVersionLogic.OperationCaller();
+                    try
+                    {
+                        blankLocationUpdater.OpenReport();
+                        blankLocationUpdater.currentVersionLogic.OperationCaller();
+                    }
+                    catch (Exception)
+                    {
+                        blankLocationUpdater = null;
+                        filter.Close();
+                        progressBarForm.Close();
+                        return;
+                    }
+                    
                     LoadForm(blankLocationUpdater);
                     progressBarForm.SetProgressBar(100);
                     var f2 = new BranchSetup_Add.LaunchedScreen(panelSize,
                         blankLocationUpdater.currentVersionLogic.calculatedBlanks.Count,
-                        blankLocationUpdater.currentVersionLogic.blanks.Count,this.label2);
+                        blankLocationUpdater.currentVersionLogic.blanks.Count, this.label2);
                     progressBarForm.Close();
                     filter.Close();
                     LoadForm(f2);
@@ -120,7 +132,7 @@ namespace BlankLocations
                         this, progressBarForm);
                     filter.Close();
                     LoadForm(blankLocationUpdater);
-                }
+                }   
             }
             else
             {

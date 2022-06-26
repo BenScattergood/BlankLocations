@@ -13,7 +13,7 @@ namespace BlankLocations_Tests
         public void Init()
         {
             var pbf = new BlankLocations.BranchSetup_Add.ProgressBarForm();
-            current = new UpdaterLogic(pbf);
+            current = new UpdaterLogic(pbf, true);
             BranchSpecificData.ClearSavedData();
         }
 

@@ -20,6 +20,7 @@ namespace BlankLocations
 
         public static void SaveToFile()
         {
+            ClearSavedData();
             SaveDataToFile();
             byte[] myHash = ReturnSecurityHash();
             File.WriteAllBytes(GetFilePath("SecurityCheck.txt"), myHash);
@@ -27,7 +28,7 @@ namespace BlankLocations
 
         private static byte[] ReturnSecurityHash()
         {
-            byte[] myFileData = File.ReadAllBytes(GetFilePath("savedData.txt"));
+            byte[] myFileData = File.ReadAllBytes(GetFilePath("SavedData.txt"));
             byte[] myHash = MD5.Create().ComputeHash(myFileData);
             return myHash;
         }
@@ -53,39 +54,35 @@ namespace BlankLocations
                 Data[i] = item;
                 i++;
             }
-            File.WriteAllLines(GetFilePath("savedData.txt"), Data);
+            File.WriteAllLines(GetFilePath("SavedData.txt"), Data);
         }
 
-        public static void ReadDataFromFile()
+        public static void ReadDataFromFile(string securityCheck = "SecurityCheck.txt")
         {
             eliminatedLocations.Clear();
             lastDigitChanges.Clear();
-            try
+            if (File.Exists(GetFilePath("SavedData.txt")))
             {
-                if (File.Exists(GetFilePath("savedData.txt")))
+                byte[] newHash = ReturnSecurityHash();
+                if (File.Exists(GetFilePath(securityCheck)))
                 {
-                    byte[] newHash = ReturnSecurityHash();
-                    if (File.Exists(GetFilePath("SecurityCheck.txt")))
+                    byte[] oldHash = File.ReadAllBytes(GetFilePath(securityCheck));
+                    if (!HashesDoMatch(oldHash, newHash))
                     {
-                        byte[] oldHash = File.ReadAllBytes(GetFilePath("SecurityCheck.txt"));
-                        if (!HashesDoMatch(oldHash, newHash))
-                        {
-                            throw new CryptographicException();
-                        }
+                        ClearSavedData();
+                        throw new CryptographicException();
                     }
-                    else
-                    {
-                        throw new FileNotFoundException();
-                    }
-                    ExtractDataFromFile();
                 }
+                else
+                {
+                    throw new FileNotFoundException();
+                }
+                ExtractDataFromFile();
             }
-            catch (Exception)
+            else
             {
-                MessageBox.Show("There appears to be a problem with your branch Data," +
-                    " you will need to setup your branch via 'Branch Setup' mode again");
-                ClearSavedData();
-            }   
+                //I have no current way of testing this
+            }
         }
         private static bool HashesDoMatch(byte[] oldHash, byte[] newHash)
         {
@@ -100,7 +97,7 @@ namespace BlankLocations
         }
         private static void ExtractDataFromFile()
         {
-            string[] cData = File.ReadAllLines(GetFilePath("savedData.txt"));
+            string[] cData = File.ReadAllLines(GetFilePath("SavedData.txt"));
             bool passedlastDigitMark = false;
             foreach (var line in cData)
             {
@@ -124,7 +121,10 @@ namespace BlankLocations
         public static void ClearSavedData()
         {
             string[] Data = new string[0];
-            File.WriteAllLines(GetFilePath("savedData.txt"), Data);
+
+            FileInfo file = new FileInfo(GetFilePath("SecurityCheck.txt"));
+            file.Directory.Create();
+            File.WriteAllLines(GetFilePath("SavedData.txt"), Data);
             File.WriteAllLines(GetFilePath("SecurityCheck.txt"), Data);
         }
     }
