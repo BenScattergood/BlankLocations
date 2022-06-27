@@ -69,8 +69,8 @@ namespace BlankLocations
 
         private void ReportsDesktop_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you wish to exit?", "Confirm Exit",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel) 
+            if (MessageBox.Show("Are you sure you want to exit?", "Confirm Exit",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel) 
             {
                 e.Cancel = true;
                 return;

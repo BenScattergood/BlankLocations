@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportsDesktop));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Blank Locations Updater");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Blank Locations Updater");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -215,12 +215,12 @@
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Margin = new System.Windows.Forms.Padding(0);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Blank Locations Updater";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.SelectedImageKey = "icons8-scroll-48.png";
-            treeNode1.Text = "Blank Locations Updater";
+            treeNode2.Name = "Blank Locations Updater";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.SelectedImageKey = "icons8-scroll-48.png";
+            treeNode2.Text = "Blank Locations Updater";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.treeView1.SelectedImageIndex = 0;
             this.treeView1.Size = new System.Drawing.Size(238, 918);
             this.treeView1.TabIndex = 3;
@@ -403,7 +403,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimizeBox = false;
+            this.MaximizeBox = false;
             this.Name = "ReportsDesktop";
             this.Text = "Babbage 2.0";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;

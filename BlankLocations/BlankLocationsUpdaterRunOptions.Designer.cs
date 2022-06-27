@@ -192,7 +192,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BlankLocationsUpdaterRunOptions";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Select Mode";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BlankLocationsUpdaterRunOptions_KeyPress);
             this.panel1.ResumeLayout(false);
