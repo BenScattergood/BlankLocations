@@ -18,17 +18,6 @@ namespace BlankLocations
             this.FormBorderStyle = FormBorderStyle.None;
             this.Size = new Size(size.Width - 15, size.Height - 8);
             this.Location = new Point(location.X + 8, location.Y);
-
-
-            
-
-            //this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            
-
-
-
-
-
             this.BackColor = Color.WhiteSmoke;
             this.Opacity = 0.30;
         }

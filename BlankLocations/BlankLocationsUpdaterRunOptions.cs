@@ -23,7 +23,7 @@ namespace BlankLocations
                 " or you would like to make changes to the existing setup, " +
                 "then run the report in 'Branch Setup' mode. Otherwise, " +
                 "download the G05 report and then open " +
-                "the report in 'Launch' mode";
+                "the report in 'Launch' mode.";
             rbLaunch.Checked = true;
             btnOk.Focus();
         }

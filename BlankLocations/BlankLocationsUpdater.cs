@@ -36,7 +36,7 @@ namespace BlankLocations
                 " you may need to add this to your reports desktop. Export the " +
                 "report without filling in the parameters. Save the report to your" +
                 " desktop inside a folder named exactly 'Blank Locations'." +
-                Environment.NewLine + "Click the 'populate' button below";
+                Environment.NewLine + "Click the 'populate' button below.";
             panel3.Hide();
             btnPopulate.Focus();
         }
@@ -97,9 +97,7 @@ namespace BlankLocations
         }
         private void btnRun_Click(object sender, EventArgs e)
         {
-            var filter = new Filter(rd.Size, rd.Location);
-            progressBarForm = new BranchSetup_Add.ProgressBarForm();
-            filter.Show();
+            progressBarForm = new BranchSetup_Add.ProgressBarForm(rd.Location,rd.Size);
             progressBarForm.SetProgressBar(0);
             progressBarForm.Show();
             progressBarForm.IncrementProgressBar(20);
@@ -111,14 +109,12 @@ namespace BlankLocations
             {
                 progressBarForm.Hide();
                 progressBarForm.SetProgressBar(0);
-                filter.Close();
                 return;
             }
             
             var f2 = new BranchSetup_Add.LaunchedScreen(panelSize,
                 currentVersionLogic.calculatedBlanks.Count,
                 currentVersionLogic.blanks.Count, this.lb2);
-            filter.Close();
             progressBarForm.Close();
             LoadForm(f2);
         }
@@ -131,21 +127,21 @@ namespace BlankLocations
             }
             catch (InvalidDataException)
             {
-                MessageBox.Show("Your G05 spreadsheet data appears to be invalid", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("Your G05 spreadsheet data appears to be invalid.", "Error", MessageBoxButtons.OK);
                 currentVersionLogic = null;
                 throw new InvalidDataException();
             }
             catch (FileNotFoundException)
             {
                 MessageBox.Show("There appears to be a problem with your saved Data," +
-                        " you will need to setup your branch via 'Branch Setup' mode again", "Error", MessageBoxButtons.OK);
+                        " you will need to setup your branch via 'Branch Setup' mode again.", "Error", MessageBoxButtons.OK);
                 currentVersionLogic = null;
                 throw new FileNotFoundException();
             }
             catch (CryptographicException)
             {
                 MessageBox.Show("There appears to be a problem with your saved Data," +
-                        " you will need to setup your branch via 'Branch Setup' mode again", "Error", MessageBoxButtons.OK);
+                        " you will need to setup your branch via 'Branch Setup' mode again.", "Error", MessageBoxButtons.OK);
                 currentVersionLogic = null;
                 throw new CryptographicException();
             }
@@ -176,8 +172,8 @@ namespace BlankLocations
                 return;
             }
             reportOpened = true;
-            Filter filter = new Filter(rd.Size, rd.Location);
-            filter.Show();
+
+            progressBarForm = new BranchSetup_Add.ProgressBarForm(rd.Location, rd.Size);
             progressBarForm.Show();
             try
             {
@@ -186,14 +182,11 @@ namespace BlankLocations
             catch (Exception)
             {
                 reportOpened = false;
-                filter.Close();
                 progressBarForm.Hide();
                 progressBarForm.SetProgressBar(0);
                 return;
             }
-            
             progressBarForm.Close();
-            filter.Close();
             panel3.Show();
             PopulateTextBoxes();
             btnPopulate.BackColor = btnAdd_RemovedLocations.BackColor;
@@ -215,7 +208,7 @@ namespace BlankLocations
             tbRemovedLocations.Text = "Click the add button below to add and remove locations." +
                 "Select all locations that contain part numbers that do not flow in part number" +
                 " order. For example, shop items or exhausts. This will depend on how your branch " +
-                "is setup";
+                "is setup.";
 
             tbLastDigitChanges.Text = "Click the add button below to add and remove product codes. " +
                 " Select all product codes that do run in part number order, however, they are seperated" +
@@ -229,7 +222,7 @@ namespace BlankLocations
                 " oil is located in part number order, then it will need to be added to the 'last digit changes'" +
                 " section, since barrells will be stored in other places." + Environment.NewLine + "Click 'launch'" +
                 " below to export the file to Excel. Sheet1 will contain the completed locations, sheet2 will contain" +
-                " the remaining blanks that will need to be checked manually";
+                " the remaining blanks that will need to be checked manually.";
         }
 
         private void btnPopulate_TabStopChanged(object sender, EventArgs e)

@@ -75,7 +75,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1287, 1010);
+            this.tabControl1.Size = new System.Drawing.Size(1287, 1056);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.TabStop = false;
             // 
@@ -85,7 +85,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1279, 984);
+            this.tabPage1.Size = new System.Drawing.Size(1279, 1030);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Blank Locations Updater";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1273, 978);
+            this.panel1.Size = new System.Drawing.Size(1273, 1024);
             this.panel1.TabIndex = 2;
             this.panel1.Resize += new System.EventHandler(this.panel1_Resize);
             // 
@@ -114,7 +114,7 @@
             this.btnPopulate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPopulate.ImageIndex = 3;
             this.btnPopulate.ImageList = this.imageList1;
-            this.btnPopulate.Location = new System.Drawing.Point(16, 160);
+            this.btnPopulate.Location = new System.Drawing.Point(13, 127);
             this.btnPopulate.Margin = new System.Windows.Forms.Padding(2);
             this.btnPopulate.Name = "btnPopulate";
             this.btnPopulate.Size = new System.Drawing.Size(117, 29);
@@ -136,18 +136,22 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.Controls.Add(this.btnLaunch);
             this.panel3.Controls.Add(this.tbFinalWords);
             this.panel3.Controls.Add(this.tbHowTo);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Controls.Add(this.panel5);
-            this.panel3.Location = new System.Drawing.Point(8, 194);
+            this.panel3.Location = new System.Drawing.Point(5, 161);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1243, 759);
+            this.panel3.Size = new System.Drawing.Size(1268, 863);
             this.panel3.TabIndex = 11;
             // 
             // btnLaunch
             // 
+            this.btnLaunch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLaunch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btnLaunch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnLaunch.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -157,7 +161,7 @@
             this.btnLaunch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLaunch.ImageIndex = 3;
             this.btnLaunch.ImageList = this.imageList1;
-            this.btnLaunch.Location = new System.Drawing.Point(8, 617);
+            this.btnLaunch.Location = new System.Drawing.Point(1141, 804);
             this.btnLaunch.Margin = new System.Windows.Forms.Padding(2);
             this.btnLaunch.Name = "btnLaunch";
             this.btnLaunch.Size = new System.Drawing.Size(117, 29);
@@ -169,49 +173,64 @@
             // 
             // tbFinalWords
             // 
+            this.tbFinalWords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbFinalWords.BackColor = System.Drawing.SystemColors.Window;
             this.tbFinalWords.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbFinalWords.Location = new System.Drawing.Point(8, 553);
+            this.tbFinalWords.Location = new System.Drawing.Point(8, 777);
             this.tbFinalWords.Multiline = true;
             this.tbFinalWords.Name = "tbFinalWords";
-            this.tbFinalWords.Size = new System.Drawing.Size(1078, 58);
+            this.tbFinalWords.ReadOnly = true;
+            this.tbFinalWords.Size = new System.Drawing.Size(1105, 81);
             this.tbFinalWords.TabIndex = 19;
             this.tbFinalWords.TabStop = false;
             // 
             // tbHowTo
             // 
+            this.tbHowTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbHowTo.BackColor = System.Drawing.SystemColors.Window;
             this.tbHowTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbHowTo.Location = new System.Drawing.Point(8, 21);
+            this.tbHowTo.Location = new System.Drawing.Point(8, 3);
             this.tbHowTo.Multiline = true;
             this.tbHowTo.Name = "tbHowTo";
-            this.tbHowTo.Size = new System.Drawing.Size(1078, 58);
+            this.tbHowTo.ReadOnly = true;
+            this.tbHowTo.Size = new System.Drawing.Size(1255, 58);
             this.tbHowTo.TabIndex = 18;
             this.tbHowTo.TabStop = false;
             // 
             // panel4
             // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
             this.panel4.Controls.Add(this.tbLastDigitChanges);
             this.panel4.Controls.Add(this.btnAdd_LastDigitChanges);
             this.panel4.Controls.Add(this.label5);
             this.panel4.Controls.Add(this.label6);
             this.panel4.Controls.Add(this.lb_lastDigitChanges);
-            this.panel4.Location = new System.Drawing.Point(707, 85);
+            this.panel4.Location = new System.Drawing.Point(845, 73);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(379, 455);
+            this.panel4.Size = new System.Drawing.Size(419, 698);
             this.panel4.TabIndex = 16;
             // 
             // tbLastDigitChanges
             // 
+            this.tbLastDigitChanges.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLastDigitChanges.BackColor = System.Drawing.SystemColors.Window;
             this.tbLastDigitChanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbLastDigitChanges.Location = new System.Drawing.Point(11, 39);
             this.tbLastDigitChanges.Multiline = true;
             this.tbLastDigitChanges.Name = "tbLastDigitChanges";
-            this.tbLastDigitChanges.Size = new System.Drawing.Size(356, 114);
+            this.tbLastDigitChanges.ReadOnly = true;
+            this.tbLastDigitChanges.Size = new System.Drawing.Size(395, 130);
             this.tbLastDigitChanges.TabIndex = 19;
             this.tbLastDigitChanges.TabStop = false;
             // 
             // btnAdd_LastDigitChanges
             // 
+            this.btnAdd_LastDigitChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdd_LastDigitChanges.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnAdd_LastDigitChanges.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnAdd_LastDigitChanges.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -221,7 +240,7 @@
             this.btnAdd_LastDigitChanges.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAdd_LastDigitChanges.ImageIndex = 1;
             this.btnAdd_LastDigitChanges.ImageList = this.imageList1;
-            this.btnAdd_LastDigitChanges.Location = new System.Drawing.Point(250, 409);
+            this.btnAdd_LastDigitChanges.Location = new System.Drawing.Point(289, 664);
             this.btnAdd_LastDigitChanges.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd_LastDigitChanges.Name = "btnAdd_LastDigitChanges";
             this.btnAdd_LastDigitChanges.Size = new System.Drawing.Size(117, 29);
@@ -241,53 +260,65 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.BackColor = System.Drawing.Color.MidnightBlue;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Top;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(379, 27);
+            this.label6.Size = new System.Drawing.Size(419, 27);
             this.label6.TabIndex = 1;
             this.label6.Text = "Last Digit Changes";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lb_lastDigitChanges
             // 
+            this.lb_lastDigitChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_lastDigitChanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_lastDigitChanges.FormattingEnabled = true;
             this.lb_lastDigitChanges.ItemHeight = 15;
-            this.lb_lastDigitChanges.Location = new System.Drawing.Point(11, 190);
+            this.lb_lastDigitChanges.Location = new System.Drawing.Point(11, 175);
             this.lb_lastDigitChanges.Name = "lb_lastDigitChanges";
-            this.lb_lastDigitChanges.Size = new System.Drawing.Size(356, 214);
+            this.lb_lastDigitChanges.Size = new System.Drawing.Size(395, 484);
             this.lb_lastDigitChanges.TabIndex = 4;
             this.lb_lastDigitChanges.TabStop = false;
             // 
             // panel5
             // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
             this.panel5.Controls.Add(this.tbRemovedLocations);
             this.panel5.Controls.Add(this.btnAdd_RemovedLocations);
             this.panel5.Controls.Add(this.label3);
             this.panel5.Controls.Add(this.label4);
             this.panel5.Controls.Add(this.lb_eliminatedLocations);
-            this.panel5.Location = new System.Drawing.Point(8, 85);
+            this.panel5.Location = new System.Drawing.Point(8, 73);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(379, 455);
+            this.panel5.Size = new System.Drawing.Size(419, 698);
             this.panel5.TabIndex = 15;
             // 
             // tbRemovedLocations
             // 
+            this.tbRemovedLocations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbRemovedLocations.BackColor = System.Drawing.SystemColors.Window;
             this.tbRemovedLocations.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbRemovedLocations.Location = new System.Drawing.Point(11, 39);
             this.tbRemovedLocations.Multiline = true;
             this.tbRemovedLocations.Name = "tbRemovedLocations";
-            this.tbRemovedLocations.Size = new System.Drawing.Size(355, 114);
+            this.tbRemovedLocations.ReadOnly = true;
+            this.tbRemovedLocations.Size = new System.Drawing.Size(395, 130);
             this.tbRemovedLocations.TabIndex = 7;
             this.tbRemovedLocations.TabStop = false;
             // 
             // btnAdd_RemovedLocations
             // 
+            this.btnAdd_RemovedLocations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdd_RemovedLocations.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnAdd_RemovedLocations.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnAdd_RemovedLocations.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -297,7 +328,7 @@
             this.btnAdd_RemovedLocations.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAdd_RemovedLocations.ImageIndex = 1;
             this.btnAdd_RemovedLocations.ImageList = this.imageList1;
-            this.btnAdd_RemovedLocations.Location = new System.Drawing.Point(249, 409);
+            this.btnAdd_RemovedLocations.Location = new System.Drawing.Point(289, 664);
             this.btnAdd_RemovedLocations.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd_RemovedLocations.Name = "btnAdd_RemovedLocations";
             this.btnAdd_RemovedLocations.Size = new System.Drawing.Size(117, 29);
@@ -317,25 +348,29 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.BackColor = System.Drawing.Color.MidnightBlue;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(379, 27);
+            this.label4.Size = new System.Drawing.Size(419, 27);
             this.label4.TabIndex = 1;
             this.label4.Text = "Removed Locations";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lb_eliminatedLocations
             // 
+            this.lb_eliminatedLocations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_eliminatedLocations.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_eliminatedLocations.FormattingEnabled = true;
             this.lb_eliminatedLocations.ItemHeight = 15;
-            this.lb_eliminatedLocations.Location = new System.Drawing.Point(11, 190);
+            this.lb_eliminatedLocations.Location = new System.Drawing.Point(11, 175);
             this.lb_eliminatedLocations.Name = "lb_eliminatedLocations";
-            this.lb_eliminatedLocations.Size = new System.Drawing.Size(355, 214);
+            this.lb_eliminatedLocations.Size = new System.Drawing.Size(395, 484);
             this.lb_eliminatedLocations.TabIndex = 0;
             this.lb_eliminatedLocations.TabStop = false;
             // 
@@ -349,7 +384,7 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(5, 13);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1263, 142);
+            this.panel2.Size = new System.Drawing.Size(1263, 109);
             this.panel2.TabIndex = 10;
             // 
             // tbBranchSetup
@@ -362,7 +397,7 @@
             this.tbBranchSetup.Multiline = true;
             this.tbBranchSetup.Name = "tbBranchSetup";
             this.tbBranchSetup.ReadOnly = true;
-            this.tbBranchSetup.Size = new System.Drawing.Size(1245, 90);
+            this.tbBranchSetup.Size = new System.Drawing.Size(1245, 65);
             this.tbBranchSetup.TabIndex = 3;
             this.tbBranchSetup.TabStop = false;
             this.tbBranchSetup.Text = "If this is the first time running the report, or you would like to make changes t" +
@@ -395,8 +430,9 @@
             this.AcceptButton = this.btnPopulate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(212)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(1287, 1010);
+            this.ClientSize = new System.Drawing.Size(1287, 1056);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "BlankLocationsUpdater";

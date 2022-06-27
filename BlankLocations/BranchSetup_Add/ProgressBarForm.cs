@@ -12,9 +12,12 @@ namespace BlankLocations.BranchSetup_Add
 {
     public partial class ProgressBarForm : Form
     {
-        public ProgressBarForm()
+        public ProgressBarForm(Point location, Size size)
         {
             InitializeComponent();
+            //var newLocation_X = (size.Height / 2) + location.X;
+            //var newLoation_Y = (size.Width / 2) + location.Y;
+            //this.Location = new Point(newLocation_X, newLoation_Y);
         }
 
         public void IncrementProgressBar(int value)

@@ -48,8 +48,7 @@ namespace BlankLocations
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
-            this.splitContainer1.SplitterDistance = 261;
+            this.splitContainer1.SplitterDistance = 227;
         }
         
 
@@ -65,6 +64,7 @@ namespace BlankLocations
             Size panelSize = splitContainer1.Panel2.Size;
             LoadForm(new NoReportSelected(panelSize));
             blankLocationUpdater = null;
+            label2.Text = "";
         }
 
         private void ReportsDesktop_FormClosing(object sender, FormClosingEventArgs e)
@@ -89,6 +89,7 @@ namespace BlankLocations
                 return;
             }
             blankLocationUpdater = null;
+            label2.Text = "";
             var form2 = new BlankLocationsUpdaterRunOptions();
             var filter = new Filter(this.Size, this.Location);
             filter.Show();
@@ -96,7 +97,7 @@ namespace BlankLocations
             
             if (form2.DialogResult == DialogResult.OK)
             {
-                BranchSetup_Add.ProgressBarForm progressBarForm = new BranchSetup_Add.ProgressBarForm();
+                BranchSetup_Add.ProgressBarForm progressBarForm = new BranchSetup_Add.ProgressBarForm(this.Location,this.Size);
                 if (form2.Launch)
                 {
                     filter.Close();
@@ -132,6 +133,7 @@ namespace BlankLocations
                     blankLocationUpdater = new BlankLocationsUpdater(panelSize, this.label2,
                         this, progressBarForm);
                     filter.Close();
+                    filter = null;
                     LoadForm(blankLocationUpdater);
                 }   
             }

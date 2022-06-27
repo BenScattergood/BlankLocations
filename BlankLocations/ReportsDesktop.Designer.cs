@@ -78,7 +78,7 @@
             this.applicationsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1680, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1159, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -131,26 +131,28 @@
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
             this.splitContainer1.Panel1.Controls.Add(this.pnlExplorer);
-            this.splitContainer1.Panel1MinSize = 261;
+            this.splitContainer1.Panel1MinSize = 227;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
-            this.splitContainer1.Size = new System.Drawing.Size(1669, 997);
-            this.splitContainer1.SplitterDistance = 261;
+            this.splitContainer1.Size = new System.Drawing.Size(1148, 708);
+            this.splitContainer1.SplitterDistance = 227;
             this.splitContainer1.TabIndex = 3;
             // 
             // pnlExplorer
             // 
+            this.pnlExplorer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlExplorer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
             this.pnlExplorer.Controls.Add(this.label1);
             this.pnlExplorer.Controls.Add(this.btnOrganise_Explorer);
             this.pnlExplorer.Controls.Add(this.pnlTreeListView);
             this.pnlExplorer.Controls.Add(this.btnAdd_Explorer);
-            this.pnlExplorer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlExplorer.Location = new System.Drawing.Point(0, 0);
             this.pnlExplorer.Name = "pnlExplorer";
-            this.pnlExplorer.Size = new System.Drawing.Size(261, 997);
+            this.pnlExplorer.Size = new System.Drawing.Size(235, 708);
             this.pnlExplorer.TabIndex = 4;
             // 
             // label1
@@ -161,7 +163,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(261, 27);
+            this.label1.Size = new System.Drawing.Size(235, 27);
             this.label1.TabIndex = 0;
             this.label1.Text = "Explorer";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -177,12 +179,12 @@
             this.btnOrganise_Explorer.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnOrganise_Explorer.ImageIndex = 0;
             this.btnOrganise_Explorer.ImageList = this.imageList1;
-            this.btnOrganise_Explorer.Location = new System.Drawing.Point(134, 29);
+            this.btnOrganise_Explorer.Location = new System.Drawing.Point(121, 29);
             this.btnOrganise_Explorer.Margin = new System.Windows.Forms.Padding(2);
             this.btnOrganise_Explorer.Name = "btnOrganise_Explorer";
-            this.btnOrganise_Explorer.Size = new System.Drawing.Size(117, 29);
+            this.btnOrganise_Explorer.Size = new System.Drawing.Size(97, 29);
             this.btnOrganise_Explorer.TabIndex = 2;
-            this.btnOrganise_Explorer.Text = "    Organise...";
+            this.btnOrganise_Explorer.Text = " Organise...";
             this.btnOrganise_Explorer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOrganise_Explorer.UseVisualStyleBackColor = false;
             // 
@@ -200,15 +202,16 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlTreeListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTreeListView.Controls.Add(this.treeView1);
-            this.pnlTreeListView.Location = new System.Drawing.Point(11, 66);
+            this.pnlTreeListView.Location = new System.Drawing.Point(8, 66);
             this.pnlTreeListView.Margin = new System.Windows.Forms.Padding(0);
             this.pnlTreeListView.Name = "pnlTreeListView";
-            this.pnlTreeListView.Size = new System.Drawing.Size(240, 920);
+            this.pnlTreeListView.Size = new System.Drawing.Size(211, 631);
             this.pnlTreeListView.TabIndex = 3;
             // 
             // treeView1
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeView1.ImageIndex = 2;
             this.treeView1.ImageList = this.imageList1;
@@ -222,7 +225,7 @@
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2});
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(238, 918);
+            this.treeView1.Size = new System.Drawing.Size(209, 629);
             this.treeView1.TabIndex = 3;
             this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
             // 
@@ -237,12 +240,12 @@
             this.btnAdd_Explorer.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnAdd_Explorer.ImageIndex = 1;
             this.btnAdd_Explorer.ImageList = this.imageList1;
-            this.btnAdd_Explorer.Location = new System.Drawing.Point(11, 29);
+            this.btnAdd_Explorer.Location = new System.Drawing.Point(8, 29);
             this.btnAdd_Explorer.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd_Explorer.Name = "btnAdd_Explorer";
-            this.btnAdd_Explorer.Size = new System.Drawing.Size(117, 29);
+            this.btnAdd_Explorer.Size = new System.Drawing.Size(97, 29);
             this.btnAdd_Explorer.TabIndex = 1;
-            this.btnAdd_Explorer.Text = "     Add...";
+            this.btnAdd_Explorer.Text = "  Add...";
             this.btnAdd_Explorer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAdd_Explorer.UseVisualStyleBackColor = false;
             // 
@@ -365,7 +368,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1680, 57);
+            this.toolStrip1.Size = new System.Drawing.Size(1159, 57);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -376,7 +379,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1680, 22);
+            this.label2.Size = new System.Drawing.Size(1159, 22);
             this.label2.TabIndex = 4;
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -385,25 +388,25 @@
             this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.panel1.Controls.Add(this.label2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 1092);
+            this.panel1.Location = new System.Drawing.Point(0, 803);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1680, 22);
+            this.panel1.Size = new System.Drawing.Size(1159, 22);
             this.panel1.TabIndex = 5;
             // 
             // ReportsDesktop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(212)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(1680, 1114);
+            this.ClientSize = new System.Drawing.Size(1159, 825);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(1175, 864);
             this.Name = "ReportsDesktop";
             this.Text = "Babbage 2.0";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
