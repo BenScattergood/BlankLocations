@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Drawing;
 using System.IO;
 using BlankLocations;
 
@@ -12,7 +13,7 @@ namespace BlankLocations_Tests
         [TestInitialize]
         public void Init()
         {
-            var pbf = new BlankLocations.BranchSetup_Add.ProgressBarForm();
+            var pbf = new BlankLocations.BranchSetup_Add.ProgressBarForm(new Point(), new Size());
             current = new UpdaterLogic(pbf, true);
             BranchSpecificData.ClearSavedData();
         }
